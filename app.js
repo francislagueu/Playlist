@@ -9,7 +9,8 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
-
+//oct 13
+var register = require('./routes/register'); //register page oct13
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -24,7 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
-
+app.use('/register', register); //register page oct13
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
@@ -61,8 +62,9 @@ app.get('/', function (req, res) {
   res.send('Hello World!');
 });
 
-app.listen(8080, function () {
-  console.log('Example app listening on port 8080!');
+
+app.listen(3000, function () {
+  console.log('Example app listening on port 3000!');
 });
 
 module.exports = app;
