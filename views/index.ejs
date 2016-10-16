@@ -8,6 +8,8 @@
 
     <body>
     	<h1>Wassup!</h1>
-    	
+    	<% if(!authorized){ %>
+    		<a href = "/oauth">To OAuth</a>
+    	<% } %>
     </body>
 </html>

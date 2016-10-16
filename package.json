@@ -11,6 +11,7 @@
     "debug": "~2.2.0",
     "ejs": "^2.5.2",
     "express": "~4.13.4",
+    "express-session": "^1.14.1",
     "googleapis": "^14.0.0",
     "jade": "~1.11.0",
     "morgan": "~1.7.0",
