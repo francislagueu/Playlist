@@ -7,9 +7,16 @@
     </head>
 
     <body>
-    	<h1>Wassup!</h1>
+    	<h1>Welcome to Playlist Manager Pre Alpha!</h1>
     	<% if(!authorized){ %>
     		<a href = "/oauth">To OAuth</a>
-    	<% } %>
+    	<% }else {%>
+	    	<h1>Here are your playlists!</h1>
+	    		<ul>
+	    			<%for(var i = 0; i < playlists.length;i++){%>
+	    				<li><%=playlists[i].snippet.title%></li>
+	    			<%}%>
+	    		</ul>
+    	<%}%>
     </body>
 </html>

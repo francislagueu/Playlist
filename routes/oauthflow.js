@@ -8,8 +8,6 @@ var OAuth2 = google.auth.OAuth2;
 var scopes = ['https://www.googleapis.com/auth/youtube'];
 var oauth2Client = googleapis.getClient();
 
-
-
 function init(req,res,next){
 	//set the global oauth2 client for google.
 	var url = oauth2Client.generateAuthUrl({
@@ -25,10 +23,9 @@ function grabAndSetCreds(req,res,next){
 	oauth2Client.getToken(code, function(err, tokens){
 		if(!err){
 			oauth2Client.setCredentials(tokens);
-			req.session.authorized = true;
 			req.session.code = code;
-			req.session.oauth=oauth2Client;
 			google.options({auth:oauth2Client});
+			req.session.authorized = true;
 			res.redirect('../..');
 		}
 		else{
