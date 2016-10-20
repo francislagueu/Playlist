@@ -24,7 +24,7 @@ router.get('/', function(req, res,next) {
 
 				});
 			}
-			beginRequest(setupPlaylistsRequest);	
+			beginRequest(setupPlObjects);	
 		}
 		else{
 			req.session.code = null;
@@ -37,27 +37,41 @@ router.get('/', function(req, res,next) {
 		
 });
 
-router.get('/playlist',function(req,res,next){
-	console.log("route gets called");
-	res.end();
+router.get('/playlist?:id',function(req,res,next){
+	if(req.session.authorized){
+		console.log("route gets called");
+		console.log(req.query.id);
+		 itemparams.playlistId = req.query.id;
+		 youtube.playlistItems.list(itemparams, function(err, response){
+		 	if(!err){
+		 		res.json(response);
+			}
+			else{
+				console.log("Error occurred grabbing playlist items!", err);
+			}
+		});
+	}
+
+	
 });
 
-function setupPlaylistsRequest(req,res,list){
-	var plids = [];
 
+
+function setupPlObjects(req,res,list){
+	var playlists = {'plids':[]};
 	if(!(null ===list)){
-		for(plinfo of list){
-			// console.log("id is: ", plinfo.id);
-			// console.log("title is: ", plinfo.snippet.title);
+		for(var i = 0; i < list.length; i++){
 			//for each playlist request its items.
-			var info = {"id": plinfo.id,
-						"title": plinfo.snippet.title
-						}
-			plids.push(info);
+			var info = {"id": list[i].id,
+						"title": list[i].snippet.title
+						};
+			//looks kinda hacky, I know :/						
+			playlists['plids']['' + i] = info;
 		}
 		
+		
 	}	
-	renderView(req,res,plids);
+	renderView(req,res,JSON.stringify(playlists));
 }
 function renderView(req,res, playlist){
 	res.render('index', {title: 'Playlist-Manager',
