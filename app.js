@@ -4,13 +4,18 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var expressSession = require('express-session');
 var routes = require('./routes/index');
 var users = require('./routes/users');
-
+var oauthflow = require('./routes/oauthflow');
 var app = express();
+
+var google = require('googleapis');
+
+
 //oct 13
 var register = require('./routes/register'); //register page oct13
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -21,10 +26,13 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(expressSession({secret:'team-583', saveUninitialized:false, resave:false}));
 app.use(express.static(path.join(__dirname, 'public')));
-
-app.use('/', routes);
 app.use('/users', users);
+app.use('/', routes);
+app.use('/oauth', oauthflow);
+app.use('/playlist', routes);
+
 app.use('/register', register); //register page oct13
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
