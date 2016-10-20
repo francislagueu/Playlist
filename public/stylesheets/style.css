@@ -4989,8 +4989,8 @@ a.badge:focus {
 }
 @media screen and (min-width: 768px) {
   .jumbotron {
-    padding-top: 48px;
-    padding-bottom: 48px;
+    padding-top: 300px;
+    padding-bottom: 350px;
   }
   .container .jumbotron,
   .container-fluid .jumbotron {
@@ -6923,4 +6923,10 @@ a.list-group-item-danger.active:focus {
 }
 .center {
   padding-top: 50px;
+}
+#spotbutt{
+	background-color: #2fd566;
+}
+#youbutt{
+	background-color: #cc181e;
 }
