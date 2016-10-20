@@ -11,15 +11,9 @@
     "cookie-parser": "~1.4.3",
     "debug": "~2.2.0",
     "ejs": "^2.5.2",
-<<<<<<< HEAD
     "express": "~4.13.4",
     "express-session": "^1.14.1",
     "googleapis": "^14.0.0",
-=======
-    "express": "^4.13.4",
-    "express-session": "^1.14.1",
->>>>>>> master
-    "jade": "~1.11.0",
     "mongoose": "^4.6.4",
     "morgan": "~1.7.0",
     "passport": "^0.3.2",
