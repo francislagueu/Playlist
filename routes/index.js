@@ -54,6 +54,11 @@ router.get('/playlist?:id',function(req,res,next){
 
 	
 });
+/*to learn*/
+router.get('/helloworld', function(req, res) {
+    res.render('helloworld', { title: 'Hello, World!' });
+});
+
 
 
 
