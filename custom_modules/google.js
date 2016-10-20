@@ -1,3 +1,4 @@
+//NEED TO HIDE THESE VALUES
 var google = require('googleapis');
 var clientId = '249154147070-8giv92se5vejk803lokt05lusoef5ir5.apps.googleusercontent.com';
 var secret = 'ZRsxEiA6eO-mM6mtb9F0aGRf';

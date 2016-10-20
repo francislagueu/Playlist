@@ -2,7 +2,7 @@
 1 verbose cli [ '/usr/local/Cellar/node/6.4.0/bin/node',
 1 verbose cli   '/usr/local/bin/npm',
 1 verbose cli   'start' ]
-2 info using npm@3.10.3
+2 info using npm@3.10.8
 3 info using node@v6.4.0
 4 verbose run-script [ 'prestart', 'start', 'poststart' ]
 5 info lifecycle Playlist@0.0.0~prestart: Playlist@0.0.0
@@ -16,7 +16,7 @@
 13 info lifecycle Playlist@0.0.0~start: Failed to exec start script
 14 verbose stack Error: Playlist@0.0.0 start: `node ./bin/www`
 14 verbose stack Exit status 1
-14 verbose stack     at EventEmitter.<anonymous> (/usr/local/lib/node_modules/npm/lib/utils/lifecycle.js:242:16)
+14 verbose stack     at EventEmitter.<anonymous> (/usr/local/lib/node_modules/npm/lib/utils/lifecycle.js:255:16)
 14 verbose stack     at emitTwo (events.js:106:13)
 14 verbose stack     at EventEmitter.emit (events.js:191:7)
 14 verbose stack     at ChildProcess.<anonymous> (/usr/local/lib/node_modules/npm/lib/utils/spawn.js:40:14)
@@ -29,7 +29,7 @@
 17 error Darwin 15.6.0
 18 error argv "/usr/local/Cellar/node/6.4.0/bin/node" "/usr/local/bin/npm" "start"
 19 error node v6.4.0
-20 error npm  v3.10.3
+20 error npm  v3.10.8
 21 error code ELIFECYCLE
 22 error Playlist@0.0.0 start: `node ./bin/www`
 22 error Exit status 1

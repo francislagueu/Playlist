@@ -1,60 +1,69 @@
 var express = require('express');
 var router = express.Router();
-var googleapis = require('./google.js');
+var googleapis = require('../custom_modules/google.js');
 var google = googleapis.getGoogle();
 var oauth2Client = googleapis.getClient();
+var googleplaylist  = require('../custom_modules/googleplaylist.js');
 var youtube = google.youtube({version: 'v3'});
-var snippet,contentDetails;
-var params =  {mine:true, part: 'snippet, contentDetails'};
+var infoparams =  {mine:true, part: 'snippet'};
+var itemparams = {playlistId: null, part: 'snippet'};
 
-var playlists = [];
-var messages = '';
-function renderCallback(req,res,list){
-	if(!(null ===list)){
-		res.render('index', {title: 'Playlist-Manager',
-							authorized: req.session.authorized, 
-							playlists: list});
-		res.end();
-	}
-	else{
-		res.render('index', {title: 'Playlist-Manager',
-							authorized: req.session.authorized});
-		res.end();
-	}
-
-	
-}
 /* GET home page. */
 router.get('/', function(req, res,next) {
 		if(req.session.authorized){
-			console.log("AUTHORIZED");
-			function list(callback){
-				youtube.playlists.list(params,function(err, response){
+			function beginRequest(callback){
+				youtube.playlists.list(infoparams,function(err, response){
 						var pls = null;
 						if(!err){
 							pls = response.items;
-							console.log(pls);
 							callback(req,res, pls);
-							
 						}
 						else{
-							console.log("ERROR OCCURRED!",err);
+							console.log("Error occurred grabbing playlist data!",err);
 						}
 
 				});
 			}
-			list(renderCallback);	
+			beginRequest(setupPlaylistsRequest);	
 		}
 		else{
-
 			req.session.code = null;
 			req.session.playlists=null;
 			req.session.authorized = null;
 			req.session.googleauth= null;
-			renderCallback(req,res,null);
+			renderView(req,res,null);
 			pls = null;
 		}
 		
 });
 
+router.get('/playlist',function(req,res,next){
+	console.log("route gets called");
+	res.end();
+});
+
+function setupPlaylistsRequest(req,res,list){
+	var plids = [];
+
+	if(!(null ===list)){
+		for(plinfo of list){
+			// console.log("id is: ", plinfo.id);
+			// console.log("title is: ", plinfo.snippet.title);
+			//for each playlist request its items.
+			var info = {"id": plinfo.id,
+						"title": plinfo.snippet.title
+						}
+			plids.push(info);
+		}
+		
+	}	
+	renderView(req,res,plids);
+}
+function renderView(req,res, playlist){
+	res.render('index', {title: 'Playlist-Manager',
+							authorized: req.session.authorized, 
+							playlists: playlist});
+
+	res.end();
+}
 module.exports = router;

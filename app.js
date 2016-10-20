@@ -24,11 +24,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(expressSession({secret:'team-583', saveUninitialized:false, resave:false}));
 app.use(express.static(path.join(__dirname, 'public')));
-app.locals.google = google;
 app.use('/users', users);
 app.use('/', routes);
 app.use('/oauth', oauthflow);
-
+app.use('/playlist', routes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

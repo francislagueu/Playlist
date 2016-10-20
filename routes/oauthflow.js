@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var app = express();
 //grab the googleapi library and Oauth2 Object. 
-var googleapis = require('./google.js');
+var googleapis = require('../custom_modules/google.js');
 var google = googleapis.getGoogle();
 var OAuth2 = google.auth.OAuth2;
 var scopes = ['https://www.googleapis.com/auth/youtube'];
