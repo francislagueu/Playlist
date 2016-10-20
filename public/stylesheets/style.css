@@ -6922,7 +6922,5 @@ a.list-group-item-danger.active:focus {
   color: #fff;
 }
 .center {
-  margin: auto;
-  width: 60%;
   padding-top: 50px;
 }
