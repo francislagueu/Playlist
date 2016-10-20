@@ -66,11 +66,6 @@ app.use(function(err, req, res, next) {
 });
 
 
-app.get('/', function (req, res) {
-  res.send('Hello World!');
-});
-//clyde:  adding register.css oct13
-app.use(express.static(__dirname+ '/public'))
 
 
 module.exports = app;
