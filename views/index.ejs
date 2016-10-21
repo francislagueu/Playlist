@@ -34,11 +34,11 @@
             <div class="row">
                 <div class="col-sm-4" align="center">
                     <div class="list-group">
-                      <a id="spotbutt" href="#" class="list-group-item active">
+                      <a id="spotbutt" href = "#" class="list-group-item active">
                         Spotify
                       </a>
                       <div class="jumbotron">
-                          <a href="#" class="btn btn-success"><span class="fa fa-spotify"> Spotify</span></a>
+                          <a href="/spotify" class="btn btn-success"><span class="fa fa-spotify"> Spotify</span></a>
                       </div>
                     </div>
                 </div>
@@ -103,33 +103,39 @@
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+        <!-- This shit is definitely going into another file at some point -->
         <script type = "text/javascript">
-         
+            
             $(window).bind('load', function(){
-                var pls = <%-playlists%>;
-                var ids = pls['plids'];
-                //$('#request-button').click(function(){
-                    for(var i = 0; i < ids.length; i ++){
-                        var id = '' + ids[i].id;
-                        (function(id){
-                        $.get({
-                            url: '/playlists',
-                            data: { id: id},
-                            dataType:'json',
-                            success: function(data, stat){
-                                for(var j = 0; j < data.items.length; j++){
-                                    //console.log(data.items[j].snippet.title);
-                                    $("ul#" + id).prepend('<li class = "list-group-item">' + data.items[j].snippet.title+'</li>');
-                                }
-                            },
-                            error: function(err){
-                                console.log("something fucked up", err);
-                            }
-                        });
-                        })(id);//
-                    }
-                //});
+                  //check if the google authorized variable is set.
+                  var tubeauth = <%if(locals.authorized){%>true;<%} else {%>false;<%}%>
+                  if(tubeauth){
+                  //A little workaround to silence the compiler.
+                  var pls = <%if(locals.playlists){%><%-playlists%>;<%}else{%>'undefined';<%}%>
+                  var ids = pls['plids'];
+                      for(var i = 0; i < ids.length; i ++){
+                          var id = '' + ids[i].id;
+                          //we need to keep the proper id within function scope.
+                          (function(id){
+                          $.get({
+                              url: '/playlists',
+                              data: { id: id},
+                              dataType:'json',
+                              success: function(data, stat){
+                                  for(var j = 0; j < data.items.length; j++){
+                                      
+                                      $("ul#" + id).prepend('<li class = "list-group-item">' + data.items[j].snippet.title+'</li>');
+                                  }
+                              },
+                              error: function(err){
+                                  console.log("something fucked up", err);
+                              }
+                          });
+                          })(id);//
+                      }
                 
+                }
             });
         </script>
         <!-- Latest compiled and minified JavaScript -->

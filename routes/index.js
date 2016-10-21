@@ -39,8 +39,6 @@ router.get('/', function(req, res,next) {
 
 router.get('/playlist?:id',function(req,res,next){
 	if(req.session.authorized){
-		console.log("route gets called");
-		console.log(req.query.id);
 		 itemparams.playlistId = req.query.id;
 		 youtube.playlistItems.list(itemparams, function(err, response){
 		 	if(!err){
@@ -54,10 +52,7 @@ router.get('/playlist?:id',function(req,res,next){
 
 	
 });
-/*to learn*/
-router.get('/helloworld', function(req, res) {
-    res.render('helloworld', { title: 'Hello, World!' });
-});
+
 
 
 

@@ -8,6 +8,7 @@ var expressSession = require('express-session');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var oauthflow = require('./routes/oauthflow');
+var spotifyauth=require('./routes/spotifyauth');
 var app = express();
 
 var google = require('googleapis');
@@ -32,7 +33,7 @@ app.use('/users', users);
 app.use('/', routes);
 app.use('/oauth', oauthflow);
 app.use('/playlist', routes);
-
+app.use('/spotify', spotifyauth);
 app.use('/register', register); //register page oct13
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
