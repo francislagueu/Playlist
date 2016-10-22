@@ -11,6 +11,7 @@ var users = require('./routes/users');
 var app = express();
 //oct 13
 var register = require('./routes/register'); //register page oct13
+var clydeindex = require('./routes/clydeindex') //other index page oct 21
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -26,6 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 app.use('/register', register); //register page oct13
+app.use('/clydeindex', clydeindex) // clydeindex page oct 21
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
