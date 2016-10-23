@@ -1,4 +1,4 @@
 module.exports = {
-	url: 'mongo://localhost:27017/users'
+	url: 'mongodb://localhost:27017/users'
 
 }

@@ -1,26 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
-
 <head>
   <title>Registration Page</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-   Oct 13 2016 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cyborg/bootstrap.min.css">
-
-  
-  <!--<link rel="stylesheet" type="text/css" href="stylesheets/register.css" />  -->
-  
-  
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
-
-
-
-<!--bryan is a fuckin' G!!!-->
 <body>
 
 <nav class="navbar navbar-default">
@@ -81,10 +68,10 @@
 
       <label for="fullName" class="col-lg-2 control-label">First and Last Name:</label>
       <div class="col-lg-4">
-        <input type="text" class="form-control" id="firstName" placeholder="First Name">
+        <input type="text" class="form-control" name="first_name" id="firstName" placeholder="First Name">
       </div>
       <div class="col-lg-4">
-        <input type="text" class="form-control" id="lastName" placeholder="Last Name">
+        <input type="text" class="form-control" name="last_name" id="lastName" placeholder="Last Name">
       </div>
 
 
@@ -99,14 +86,14 @@
     <div class="form-group col-lg-8">
       <label for="inputEmail" class="col-lg-2 control-label">Email Adddress:</label>
       <div class="col-lg-4">
-        <input type="text" class="form-control" id="inputEmail" placeholder="Email Address">
+        <input type="text" class="form-control" id="inputEmail" name="email" placeholder="Email Address">
       </div>
     </div>
 
     <div class="form-group col-lg-8">
       <label for="chooseUsername" class="col-lg-2 control-label">Choose a Username:</label>
       <div class="col-lg-4">
-        <input type="text" class="form-control" id="username" placeholder="Username">
+        <input type="text" class="form-control" id="username" name="username" placeholder="Username">
         
       </div>
     </div>
@@ -114,28 +101,14 @@
     <div class="form-group col-lg-8">
       <label for="inputPassword" class="col-lg-2 control-label">Password:</label>
       <div class="col-lg-4">
-        <input type="password" class="form-control" id="inputPassword" placeholder="Please Enter a Password!">
+        <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Please Enter a Password!">
         
       </div>
     </div>
-
-    <div class="form-group col-lg-8">
-      <label for="confirmPassword" class="col-lg-2 control-label">Re-Enter Password:</label>
-      <div class="col-lg-4">
-        <input type="password" class="form-control" id="confirmPassword" placeholder="Re-Enter Password">
-        
-      </div>
-    </div>
-
-    
-    
-
-
-    
     <div class="form-group col-lg-8">
       <div class="col-lg-10 col-lg-offset-2">
-        <button type="reset" class="btn btn-danger">Cancel</button>
-        <button type="submit" class="btn btn-success">Submit</button>
+        <a type="reset" class="btn btn-danger" href="/register">Cancel</a>
+        <a href="" class="btn btn-success">Submit</a>
       </div>
     </div>
   </form>

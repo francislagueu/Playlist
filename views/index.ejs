@@ -1,144 +1,157 @@
-<!DOCTYPE html>
-
+<!doctype html>
 <html>
-
     <head>
-      <title>Playlist</title>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-      <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    </head>
-
-    <body>
-        <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container-fluid">
-            <div>
-                <a class="navbar-brand" href="#">Playlist</a>
-            </div>
-            <ul class="nav navbar-nav">
-                <!-- any rightside buttons go here-->
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Sign Up</a></li>
-                <li><a href="#">Log In</a></li>
-            </ul>
-        </div>
-        </nav>
-    	<h1></h1>
-    	
-            <div class="center"></div>
-            <div class="row">
-                <div class="col-sm-4" align="center">
-                    <div class="list-group">
-                      <a id="spotbutt" href = "#" class="list-group-item active">
-                        Spotify
-                      </a>
-                      <div class="jumbotron">
-                          <a href="/spotify" class="btn btn-success"><span class="fa fa-spotify"> Spotify</span></a>
-                      </div>
-                    </div>
-                </div>
-                <div class="col-sm-4" align="center">
-                    <a href="#" class="list-group-item active">
-                        Builder
-                      </a>
-                      <a href="#" class="list-group-item">I love
-                      </a>
-                      <a href="#" class="list-group-item">Music and stuff
-                      </a>
-                </div>
-
-                <!-- place the authorized check here, if it's not authorized display this, else, display the playlists this user owns.-->
-      <% if(!authorized){ %>
-                <div class="col-md-4" align="center">
-                    <div class="list-group">
-                      <a id="youbutt" href="#" class="list-group-item active">
-                        Youtube
-                      </a>
-                      <div class="jumbotron">
-                          <a href="/oauth" class="btn btn-danger"><span class="fa fa-youtube"> YouTube</span></a>
-                      </div>
-                    </div>
-                    
-                </div>
-
-            </div>
-    	<% }else {%>
-            <div class="col-md-4" align="center">
-                <div class="list-group">
-                  <a id="youbutt" href="#" class="list-group-item active">
-                    Youtube
-                  </a>
-                  <%if(!(playlists === null)){%>
-                    <%var pls = JSON.parse(playlists);%>
-                      <div class="panel-group">
-                        <%for(var i = 0; i < pls.plids.length;i++){%>
-                            <div class="panel panel-default">
-                              <div class="panel-heading">
-                                <h4 class="panel-title">
-                                  <a data-toggle="collapse" href='#collapse<%=i%>'><%=pls.plids[i].title%></a>
-                                </h4>
-                              </div>
-                              <div id='collapse<%=i%>' class="panel-collapse collapse">
-                                <ul id = '<%=pls.plids[i].id%>' class="list-group">
-                                 
-                                </ul>
-                                <div class="panel-footer">Footer</div>
-                              </div>
-                            </div>
-                        <%}%>
-                      </div>
-                  <%}%>
-
-                </div>
-            </div>
-	    	
-                <!-- <button type = "button" id = 'request-button' class = "btn btn-primary">Check Route</button>-->
-                
-        <%}%>
-
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <meta name="robots" content="noindex, nofollow">
+        <meta name="googlebot" content="noindex, nofollow">
+        <title>Playlist</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="https://developer.spotify.com/web-api/static/css/cached.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+        <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cyborg/bootstrap.min.css" rel="stylesheet" integrity="sha384-D9XILkoivXN+bcvB2kSOowkIvIcBbNdoDQvfBNsxYAIieZbx8/SI4NeUvrRGCpDi" crossorigin="anonymous">
 
-        <!-- This shit is definitely going into another file at some point -->
-        <script type = "text/javascript">
-            
-            $(window).bind('load', function(){
-                  //check if the google authorized variable is set.
-                  var tubeauth = <%if(locals.authorized){%>true;<%} else {%>false;<%}%>
-                  if(tubeauth){
-                  //A little workaround to silence the compiler.
-                  var pls = <%if(locals.playlists){%><%-playlists%>;<%}else{%>'undefined';<%}%>
-                  var ids = pls['plids'];
-                      for(var i = 0; i < ids.length; i ++){
-                          var id = '' + ids[i].id;
-                          //we need to keep the proper id within function scope.
-                          (function(id){
-                          $.get({
-                              url: '/playlists',
-                              data: { id: id},
-                              dataType:'json',
-                              success: function(data, stat){
-                                  for(var j = 0; j < data.items.length; j++){
-                                      
-                                      $("ul#" + id).prepend('<li class = "list-group-item">' + data.items[j].snippet.title+'</li>');
-                                  }
-                              },
-                              error: function(err){
-                                  console.log("something fucked up", err);
-                              }
-                          });
-                          })(id);//
-                      }
-                
+        <script>
+        window.onload = function () {
+            var templateSource = document.getElementById('results-template').innerHTML,
+                    template = Handlebars.compile(templateSource),
+                    resultsPlaceholder = document.getElementById('results'),
+                    playingCssClass = 'playing',
+                    audioObject = null;
+
+            var fetchTracks = function (albumId, callback) {
+                $.ajax({
+                    url: 'https://api.spotify.com/v1/albums/' + albumId,
+                    success: function (response) {
+                        callback(response);
+                    }
+                });
+            };
+
+            var searchAlbums = function (query) {
+                $.ajax({
+                    url: 'https://api.spotify.com/v1/search',
+                    data: {
+                        q: query,
+                        type: 'album'
+                    },
+                    success: function (response) {
+                        console.log(response);
+                        resultsPlaceholder.innerHTML = template(response);
+                    }
+                });
+            };
+
+            results.addEventListener('click', function (e) {
+                var target = e.target;
+                if (target !== null && target.classList.contains('cover')) {
+                    if (target.classList.contains(playingCssClass)) {
+                        audioObject.pause();
+                    } else {
+                        if (audioObject) {
+                            audioObject.pause();
+                        }
+                        fetchTracks(target.getAttribute('data-album-id'), function (data) {
+                            audioObject = new Audio(data.tracks.items[0].preview_url);
+                            audioObject.play();
+                            target.classList.add(playingCssClass);
+                            audioObject.addEventListener('ended', function () {
+                                target.classList.remove(playingCssClass);
+                            });
+                            audioObject.addEventListener('pause', function () {
+                                target.classList.remove(playingCssClass);
+                            });
+                        });
+                    }
                 }
             });
+
+            document.getElementById('search-form').addEventListener('submit', function (e) {
+                e.preventDefault();
+                searchAlbums(document.getElementById('query').value);
+            }, false);
+        }
+
         </script>
-        <!-- Latest compiled and minified JavaScript -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <style type="text/css">
+            body {
+                padding: 20px;
+            }
+            #search-form, .form-control {
+                margin-bottom: 20px;
+            }
+            .cover {
+                width: 300px;
+                height: 300px;
+                display: inline-block;
+                background-size: cover;
+            }
+            .cover:hover {
+                cursor: pointer;
+            }
+            .cover.playing {
+                border: 5px solid #e45343;
+            }
+        </style>
+
+    </head>
+    <body>
+    <nav class="navbar navbar-static-top navbar-dark bg-inverse">
+        <a class="navbar-brand fa fa-music" href="/"><b> PlaylistManager </b><i class="fa fa-play" aria-hidden="true"></i></a>
+        <ul class="nav navbar-nav pull-right">
+            <li class="nav-item">
+                <a href="/register" class="nav-link">Register</a>
+            </li>
+            <li class="nav-item">
+                <a href="/login" class="nav-link">Login</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+        <div class="container">
+            <form id="search-form">
+                <div class="form-group row">
+                    <div class="col-md-10">
+                        <input type="text" id="query" value="" class="form-control" placeholder="Search Music">
+                    </div>
+                    <div class="col-md-2">
+                        <input type="submit" id="search" class="btn btn-success" value="Search" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="container">
+
+           <div id="results"></div>
+
+
+        <hr>
+
+    </div> <!-- /container -->
+    <script id="results-template" type="text/x-handlebars-template">
+        {{#each albums.items}}
+        <div style="background-image:url({{images.0.url}})" data-album-id="{{id}}" class="cover"></div>
+        {{/each}}
+    </script>
+
+
+    <footer>
+        <p>&copy; Company 2016</p>
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha384-3ceskX3iaEnIogmQchP8opvBy3Mi7Ce34nWjpBIwVTHfGYWQS9jwHDVRnpKKHJg7" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
+
+
     </body>
 </html>

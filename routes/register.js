@@ -1,12 +1,13 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET my register page. *///oct13  correct!
-router.get('', function(req, res) {
-  res.render('register', { title: 'Express' });
-});
-/*to learn*/
-router.get('/helloworld', function(req, res) {
-    res.render('helloworld', { title: 'Hello, World!' });
-});
 module.exports = router;
+router.get('/register', function(req, res) {
+    res.render('register.ejs', { message: req.flash('signupMessage')});
+});
+
+router.get('/login', function (req, res) {
+    res.render('login.ejs', {message: req.flash('loginMessage')});
+});
+
+
