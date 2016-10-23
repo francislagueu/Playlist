@@ -11,13 +11,14 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var oauthflow = require('./routes/oauthflow');
 var spotifyauth=require('./routes/spotifyauth');
-var app = express();
+
+var register = require('./routes/register'); //register page oct13
 
 var google = require('googleapis');
 
+var app = express();
 
 //oct 13
-var register = require('./routes/register'); //register page oct13
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -35,11 +36,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 app.use('/users', users);
+app.use('/register', register); //register page oct13
 app.use('/', routes);
 app.use('/oauth', oauthflow);
 app.use('/playlist', routes);
 app.use('/spotify', spotifyauth);
-app.use('/register', register); //register page oct13
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

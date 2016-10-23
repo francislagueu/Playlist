@@ -1,13 +1,14 @@
 var express = require('express');
 var router = express.Router();
 
-module.exports = router;
-router.get('/register', function(req, res) {
-    res.render('register.ejs', { message: req.flash('signupMessage')});
+
+router.get('/', function(req, res,next) {
+	console.log('register called');
+    res.render('register', { message: req.flash('signupMessage')});
 });
 
 router.get('/login', function (req, res) {
-    res.render('login.ejs', {message: req.flash('loginMessage')});
+    res.render('login', {message: req.flash('loginMessage')});
 });
-
+module.exports = router;
 

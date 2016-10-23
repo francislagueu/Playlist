@@ -1,14 +1,16 @@
 var express = require('express');
 var router = express.Router();
 var googleapis = require('../custom_modules/google.js');
+var spotify = require('../custom_modules/spotify.js');
 var google = googleapis.getGoogle();
 var oauth2Client = googleapis.getClient();
+var spotifyapi = spotify.getSpotifyWebApi();
 var googleplaylist  = require('../custom_modules/googleplaylist.js');
 var youtube = google.youtube({version: 'v3'});
 var infoparams =  {mine:true, part: 'snippet'};
 var itemparams = {playlistId: null, part: 'snippet'};
 
-/* GET home page. */
+/* Main page where the playlists are located. */
 router.get('/', function(req, res,next) {
 		if(req.session.authorized){
 			function beginRequest(callback){
@@ -25,6 +27,14 @@ router.get('/', function(req, res,next) {
 				});
 			}
 			beginRequest(setupPlObjects);	
+		}
+		else if(req.session.spotauth){
+			var user;
+			spotifyapi.getMe().then(function(data){
+				
+				user = data;
+			}, function(err){console.log("error getting user: ", err);});
+			res.end();
 		}
 		else{
 			req.session.code = null;
