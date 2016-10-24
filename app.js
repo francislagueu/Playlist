@@ -12,14 +12,15 @@ var users = require('./routes/users');
 var oauthflow = require('./routes/oauthflow');
 var spotifyauth=require('./routes/spotifyauth');
 var home = require('./routes/home');
+var config = require('./config/database');
 var register = require('./routes/register'); //register page oct13
-
+var mongoose = require('mongoose');
 var google = require('googleapis');
 
 var app = express();
 
 //oct 13
-
+mongoose.connect(config.url);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
