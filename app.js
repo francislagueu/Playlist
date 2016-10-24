@@ -13,7 +13,7 @@ var oauthflow = require('./routes/oauthflow');
 var spotifyauth=require('./routes/spotifyauth');
 var config = require('./config/database');
 var register = require('./routes/register'); //register page oct13
-
+var mongoose = require('mongoose');
 var google = require('googleapis');
 
 var app = express();
