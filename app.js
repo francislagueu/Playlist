@@ -11,7 +11,7 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var oauthflow = require('./routes/oauthflow');
 var spotifyauth=require('./routes/spotifyauth');
-
+var home = require('./routes/home');
 var register = require('./routes/register'); //register page oct13
 
 var google = require('googleapis');
@@ -37,6 +37,7 @@ app.use(passport.session());
 app.use(flash());
 app.use('/users', users);
 app.use('/register', register); //register page oct13
+app.use('/home', home);
 app.use('/', routes);
 app.use('/oauth', oauthflow);
 app.use('/playlist', routes);
@@ -63,15 +64,15 @@ if (app.get('env') === 'development') {
   });
 }
 
-// production error handler
-// no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
-  });
-});
+// // production error handler
+// // no stacktraces leaked to user
+// app.use(function(err, req, res, next) {
+//   res.status(err.status || 500);
+//   res.render('error', {
+//     message: err.message,
+//     error: {}
+//   });
+// });
 
 
 

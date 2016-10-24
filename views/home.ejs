@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html>
 
 <head>
@@ -19,7 +18,7 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
         <div>
-            <a class="navbar-brand" href="#">Playlist</a>
+            <a class="navbar-brand" href="/index">Playlist</a>
         </div>
         <ul class="nav navbar-nav">
             <!-- any rightside buttons go here-->
@@ -121,7 +120,7 @@
                 //we need to keep the proper id within function scope.
                 (function(id){
                     $.get({
-                        url: '/playlists',
+                        url: '/home/playlists',
                         data: { id: id},
                         dataType:'json',
                         success: function(data, stat){
@@ -134,7 +133,7 @@
                             console.log("something fucked up", err);
                         }
                     });
-                })(id);//
+                })(id);
             }
 
         }
