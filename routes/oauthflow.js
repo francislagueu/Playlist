@@ -26,7 +26,7 @@ function grabAndSetCreds(req,res,next){
 			req.session.code = code;
 			google.options({auth:oauth2Client});
 			req.session.authorized = true;
-			res.redirect('../..');
+			res.redirect('/home');
 		}
 		else{
 			req.session.authorized = false;
@@ -34,7 +34,6 @@ function grabAndSetCreds(req,res,next){
 		}
 	});
 }
-
 //start auth flow.
 router.get('/',init);
 //handle the callback url.

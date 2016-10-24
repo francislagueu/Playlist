@@ -1,12 +1,11 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET my register page. *///oct13  correct!
-router.get('', function(req, res) {
-  res.render('register', { title: 'Express' });
+
+router.get('/', function(req, res,next) {
+	console.log('register called');
+    res.render('register', { message: req.flash('signupMessage')});
 });
-/*to learn*/
-router.get('/helloworld', function(req, res) {
-    res.render('helloworld', { title: 'Hello, World!' });
-});
+
 module.exports = router;
+
