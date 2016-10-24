@@ -14,13 +14,13 @@ var spotifyauth=require('./routes/spotifyauth');
 var home = require('./routes/home');
 var config = require('./config/database');
 var register = require('./routes/register'); //register page oct13
-var mongoose = require('mongoose');
+//var mongoose = require('mongoose');
 var google = require('googleapis');
-
+var login = require('./routes/login')// login routing?  oct23
 var app = express();
 
 //oct 13
-mongoose.connect(config.url);
+//mongoose.connect(config.url);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -43,6 +43,7 @@ app.use('/', routes);
 app.use('/oauth', oauthflow);
 app.use('/playlist', routes);
 app.use('/spotify', spotifyauth);
+app.use('/login', login);  //login page oct 23
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
