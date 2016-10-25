@@ -50,7 +50,6 @@ router.get('/', function(req, res,next) {
 router.get('/playlist?:id',function(req,res,next){
 	if(req.session.authorized){
 		 itemparams.playlistId = req.query.id;
-		 console.log(req.query.id);
 		 youtube.playlistItems.list(itemparams, function(err, response){
 		 	if(!err){
 

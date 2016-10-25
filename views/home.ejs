@@ -18,7 +18,7 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
         <div>
-            <a class="navbar-brand" href="/index">Playlist</a>
+            <a class="navbar-brand" href="/home">Playlist</a>
         </div>
         <ul class="nav navbar-nav">
             <!-- any rightside buttons go here-->
@@ -78,19 +78,18 @@
         <%var pls = JSON.parse(playlists);%>
         <div class="panel-group">
             <%for(var i = 0; i < pls.plids.length;i++){%>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" href='#collapse<%=i%>'><%=pls.plids[i].title%></a>
-                    </h4>
-                </div>
-                <div id='collapse<%=i%>' class="panel-collapse collapse">
-                    <ul id = '<%=pls.plids[i].id%>' class="list-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" href='#collapse<%=i%>'><%=pls.plids[i].title%></a>
+                        </h4>
+                    </div>
+                    <div id='collapse<%=i%>' class="panel-collapse collapse">
+                        <ul id = '<%=pls.plids[i].id%>' class="list-group">
 
-                    </ul>
-                    <div class="panel-footer">Footer</div>
+                        </ul>
+                    </div>
                 </div>
-            </div>
             <%}%>
         </div>
         <%}%>
@@ -102,6 +101,8 @@
 
 <%}%>
 
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
@@ -139,7 +140,5 @@
         }
     });
 </script>
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
 </html>
