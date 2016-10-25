@@ -8,7 +8,7 @@ var spotifyapi = spotify.getSpotifyWebApi();
 var googleplaylist  = require('../custom_modules/googleplaylist.js');
 var youtube = google.youtube({version: 'v3'});
 var infoparams =  {mine:true, part: 'snippet'};
-var itemparams = {playlistId: null, part: 'snippet'};
+var tubeitemparams = {playlistId: null, part: 'snippet'};
 
 /* Main page where the playlists are located. */
 router.get('/', function(req, res,next) {
@@ -28,14 +28,23 @@ router.get('/', function(req, res,next) {
 			}
 			beginRequest(setupPlObjects);	
 		}
-		else if(req.session.spotauth){
-			var user;
-			spotifyapi.getMe().then(function(data){
-				
-				user = data;
-			}, function(err){console.log("error getting user: ", err);});
-			res.end();
-		}
+		// if(req.session.spotauth){
+		// 	var user, list;
+		// 	var playlists = [];
+		// 	spotifyapi.getMe().then(function(data){
+		// 		user = data.body;
+		// 		spotifyapi.getUserPlaylists(user.id).then(function(data){
+		// 			list = data.body;
+		// 			for(pl of list.items){
+		// 				playlists.push(pl.id);
+		// 			}
+		// 			console.log(playlists);
+		// 		},function(err){
+		// 			console.log('error getting user id', err);
+		// 		});
+		// 	}, function(err){console.log("error getting user: ", err);});
+		// 	res.end();
+		// }
 		else{
 			req.session.code = null;
 			req.session.playlists=null;
@@ -49,9 +58,9 @@ router.get('/', function(req, res,next) {
 
 router.get('/playlist?:id',function(req,res,next){
 	if(req.session.authorized){
-		 itemparams.playlistId = req.query.id;
+		 tubeitemparams.playlistId = req.query.id;
 		 console.log(req.query.id);
-		 youtube.playlistItems.list(itemparams, function(err, response){
+		 youtube.playlistItems.list(tubeitemparams, function(err, response){
 		 	if(!err){
 
 		 		res.json(response);
@@ -62,9 +71,13 @@ router.get('/playlist?:id',function(req,res,next){
 		});
 	}
 
-	
 });
 
+// router.get('/spotplaylist',function(){
+// 	if(req.session.spotauth){
+
+// 	}
+// });
 
 
 
