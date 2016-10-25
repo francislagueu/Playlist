@@ -14,13 +14,13 @@ var spotifyauth=require('./routes/spotifyauth');
 var home = require('./routes/home');
 var config = require('./config/database');
 var register = require('./routes/register'); //register page oct13
-//var mongoose = require('mongoose');
+var mongoose = require('mongoose');  //oct 24
 var google = require('googleapis');
 var login = require('./routes/login')// login routing?  oct23
 var app = express();
 
 //oct 13
-//mongoose.connect(config.url);
+mongoose.connect(config.url);  //oct 24
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
