@@ -28,23 +28,7 @@ router.get('/', function(req, res,next) {
 			}
 			beginRequest(setupPlObjects);	
 		}
-		// if(req.session.spotauth){
-		// 	var user, list;
-		// 	var playlists = [];
-		// 	spotifyapi.getMe().then(function(data){
-		// 		user = data.body;
-		// 		spotifyapi.getUserPlaylists(user.id).then(function(data){
-		// 			list = data.body;
-		// 			for(pl of list.items){
-		// 				playlists.push(pl.id);
-		// 			}
-		// 			console.log(playlists);
-		// 		},function(err){
-		// 			console.log('error getting user id', err);
-		// 		});
-		// 	}, function(err){console.log("error getting user: ", err);});
-		// 	res.end();
-		// }
+		
 		else{
 			req.session.code = null;
 			req.session.playlists=null;
@@ -54,6 +38,37 @@ router.get('/', function(req, res,next) {
 			pls = null;
 		}
 		
+});
+
+router.get('/playlistinfo', function(req, res, next){
+	var playlists = {'plids':[]};
+	var info;
+	if(req.session.authorized){
+			youtube.playlists.list(infoparams,function(err, response){
+					var pls = null;
+					if(!err){
+						pls = response.items;
+						if(!(null === pls) || !('undefined' === pls)){
+							for(var i = 0; i < pls.length; i++){
+								//for each playlist request its items.
+								info = {"id": pls[i].id,
+											"title": pls[i].snippet.title
+											};
+								//looks kinda hacky, I know :/						
+								playlists['plids']['' + i] = info;
+							}
+							res.json(playlists);	
+						}
+						
+					}
+					else{
+						console.log("Error occurred grabbing playlist data!",err);
+					}
+
+			});
+	}
+	else 
+		next();
 });
 
 router.get('/playlist?:id',function(req,res,next){
