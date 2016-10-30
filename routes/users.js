@@ -15,6 +15,12 @@ router.get('/login', function (req, res) {
   res.render('login');
 });
 
+/*
+router.get('/home', function (req, res) {
+    res.render('home');
+})
+*/
+
 //Register the User
 router.post('/register', function (req, res) {
     var first_name = req.body.first_name;
