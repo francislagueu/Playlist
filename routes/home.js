@@ -76,6 +76,7 @@ router.get('/playlist?:id',function(req,res,next){
 		 tubeitemparams.playlistId = req.query.id;
 		 console.log(req.query.id);
 		 youtube.playlistItems.list(tubeitemparams, function(err, response){
+
 		 	if(!err){
 
 		 		res.json(response);

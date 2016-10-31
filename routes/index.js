@@ -1,8 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/', function (req, res, rext) {
-	console.log('login route called');
+router.get('/', function (req, res ) {
     res.render('index', {authorized:false});
 });
 module.exports = router;
