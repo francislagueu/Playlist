@@ -28,6 +28,7 @@ function prepCredentials(req,res,next){
 	});
 }
 
+
 router.get('/', init);
 router.get('/auth', prepCredentials);
 module.exports = router;

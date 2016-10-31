@@ -11,7 +11,7 @@ var oauth2Client = googleapis.getClient();
 function init(req,res,next){
 	//set the global oauth2 client for google.
 	var url = oauth2Client.generateAuthUrl({
-		access_type: 'offline',
+		access_type: 'online',
 		scope:scopes
 	});
 	res.redirect(url);

@@ -8,7 +8,7 @@ var spotifyapi = spotify.getSpotifyWebApi();
 var googleplaylist  = require('../custom_modules/googleplaylist.js');
 var youtube = google.youtube({version: 'v3'});
 var infoparams =  {mine:true, part: 'snippet'};
-var itemparams = {playlistId: null, part: 'snippet'};
+var tubeitemparams = {playlistId: null, part: 'snippet'};
 
 /* Main page where the playlists are located. */
 router.get('/', function(req, res,next) {
@@ -28,14 +28,7 @@ router.get('/', function(req, res,next) {
 			}
 			beginRequest(setupPlObjects);	
 		}
-		else if(req.session.spotauth){
-			var user;
-			spotifyapi.getMe().then(function(data){
-				
-				user = data;
-			}, function(err){console.log("error getting user: ", err);});
-			res.end();
-		}
+		
 		else{
 			req.session.code = null;
 			req.session.playlists=null;
@@ -47,10 +40,43 @@ router.get('/', function(req, res,next) {
 		
 });
 
+router.get('/playlistinfo', function(req, res, next){
+	var playlists = {'plids':[]};
+	var info;
+	if(req.session.authorized){
+			youtube.playlists.list(infoparams,function(err, response){
+					var pls = null;
+					if(!err){
+						pls = response.items;
+						if(!(null === pls) || !('undefined' === pls)){
+							for(var i = 0; i < pls.length; i++){
+								//for each playlist request its items.
+								info = {"id": pls[i].id,
+											"title": pls[i].snippet.title
+											};
+								//looks kinda hacky, I know :/						
+								playlists['plids']['' + i] = info;
+							}
+							res.json(playlists);	
+						}
+						
+					}
+					else{
+						console.log("Error occurred grabbing playlist data!",err);
+					}
+
+			});
+	}
+	else 
+		next();
+});
+
 router.get('/playlist?:id',function(req,res,next){
 	if(req.session.authorized){
-		 itemparams.playlistId = req.query.id;
-		 youtube.playlistItems.list(itemparams, function(err, response){
+		 tubeitemparams.playlistId = req.query.id;
+		 console.log(req.query.id);
+		 youtube.playlistItems.list(tubeitemparams, function(err, response){
+
 		 	if(!err){
 
 		 		res.json(response);
@@ -61,9 +87,13 @@ router.get('/playlist?:id',function(req,res,next){
 		});
 	}
 
-	
 });
 
+// router.get('/spotplaylist',function(){
+// 	if(req.session.spotauth){
+
+// 	}
+// });
 
 
 
