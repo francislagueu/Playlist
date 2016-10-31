@@ -4,11 +4,10 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
-    
-
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
+    "bcryptjs": "^2.3.0",
     "body-parser": "~1.15.1",
     "connect-flash": "^0.1.1",
     "cookie-parser": "~1.4.3",
@@ -16,7 +15,9 @@
     "ejs": "^2.5.2",
     "express": "~4.13.4",
     "express-session": "^1.14.1",
+    "express-validator": "^2.21.0",
     "googleapis": "^14.0.0",
+    "mongodb": "^2.2.11",
     "mongoose": "^4.6.5",
     "morgan": "~1.7.0",
     "passport": "^0.3.2",
