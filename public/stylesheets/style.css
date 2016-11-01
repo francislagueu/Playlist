@@ -5,7 +5,7 @@ html, body{
     background-repeat: no-repeat;
 }
 .jumbotron{
-    background-image: url("../images/cool-music-background.jpg");
-
+    background-image: url("../images/headphones.jpg");
+    background-size: 100%;
     background-repeat:repeat-x;
 }
