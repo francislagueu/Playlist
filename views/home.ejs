@@ -24,19 +24,24 @@
 
 <div class="center"></div>
 <div class="row" style="font-size: 200%; margin-top: 90px;">
-    <% if(!spotauth)%>
-    <div class="col-sm-4" align="center">
-        <div class="list-group">
-            <a id="spotbutt" href = "#" class="list-group-item active">
-                Spotify
-            </a>
-            <div class="jumbotron">
-                <a href="/spotify" class="btn btn-success"><span class="fa fa-spotify" style="padding: 15px; font-size: 200%;"> Spotify</span></a>
+    <% if(!spotauth){%>
+        <div class="col-sm-4" align="center">
+            <div class="list-group">
+                <a id="spotbutt" href = "#" class="list-group-item active">
+                    Spotify
+                </a>
+                <div class="panel-group" id = "spotify-playlists"></div>
             </div>
         </div>
-    </div>
     <%} else {%> 
-
+        <div class="col-sm-4" align="center">
+            <div class="list-group">
+                <a id="spotbutt" href = "#" class="list-group-item active">
+                    Spotify
+                </a>
+                
+            </div>
+        </div>
     <%}%>
 
     <!-- Reserved section for the builder, coming up next :) -->

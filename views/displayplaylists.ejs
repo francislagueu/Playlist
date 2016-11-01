@@ -1,12 +1,10 @@
 <script type = "text/javascript">
     //check if the google authorized variable is set.
-    var tubeauth = <%if(locals.tube){%>true;<%} else {%>false;<%}%>
+    var tubeauth = <%if(locals.authorized){%>true;<%} else {%>false;<%}%>
     var ids; 
     var spotauth = <%if(locals.spotauth){%>true;<%} else {%>false;<%}%>
-    if(spotauth){
-        
-    }
     
+
     if(tubeauth){
         //need to make an async call to playlist item function down below.
         $.get({

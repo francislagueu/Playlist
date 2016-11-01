@@ -13,16 +13,16 @@ var tubeitemparams = {playlistId: null, part: 'snippet'};
 /* Main page where the playlists are located. */
 router.get('/', function(req, res,next) {
 		if(req.session.authorized || req.session.spotauth){
-			renderView(req,res,null);
-			
+			renderView(req,res,req.session.authorized, req.session.spotauth);
 		}
 		
 		else{
 			req.session.code = null;
 			req.session.playlists=null;
-			req.session.authorized = null;
+			req.session.authorized = false;
 			req.session.googleauth= null;
-			renderView(req,res,null);
+			req.session.spotauth = false;
+			renderView(req,res,req.session.authorized, req.session.spotauth);
 			pls = null;
 		}
 		
@@ -41,7 +41,7 @@ router.get('/playlistinfo', function(req, res, next){
 								//for each playlist request its items.
 								info = {"id": pls[i].id,
 										"title": pls[i].snippet.title
-										};
+											};
 								//looks kinda hacky, I know :/						
 								playlists['plids']['' + i] = info;
 							}
@@ -49,9 +49,9 @@ router.get('/playlistinfo', function(req, res, next){
 						}
 						
 					}
-					else
+					else{
 						console.log("Error occurred grabbing playlist data!",err);
-					
+					}
 
 			});
 	}
@@ -77,10 +77,35 @@ router.get('/playlist?:id',function(req,res,next){
 
 });
 
-function renderView(req,res, playlist){
+// router.get('/spotplaylist',function(){
+// 	if(req.session.spotauth){
+
+// 	}
+// });
+
+
+
+
+function setupPlObjects(req,res,list){
+	var playlists = {'plids':[]};
+	if(!(null ===list)){
+		for(var i = 0; i < list.length; i++){
+			//for each playlist request its items.
+			var info = {"id": list[i].id,
+						"title": list[i].snippet.title
+						};
+			//looks kinda hacky, I know :/						
+			playlists['plids']['' + i] = info;
+		}
+		
+		
+	}	
+	renderView(req,res,JSON.stringify(playlists));
+}
+function renderView(req,res, google, spotify){
 	res.render('home', {title: 'Playlist-Manager',
-							authorized: req.session.authorized, 
-							playlists: playlist});
+							authorized: google, 
+							spotauth: spotify});
 
 	res.end();
 }
