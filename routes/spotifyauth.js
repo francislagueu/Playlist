@@ -15,7 +15,8 @@ function init(req,res,next){
 
 function prepCredentials(req,res,next){
 	var code = req.query.code; 
-	spotifyapi.authorizationCodeGrant(code).then(function(data){
+	spotifyapi.authorizationCodeGrant(code).then(
+	function(data){
 		spotifyapi.setAccessToken(data.body['access_token']);
 		spotifyapi.setRefreshToken(data.body['refresh_token']);
 		req.session.spotauth = true;
