@@ -3,20 +3,12 @@
 
 <head>
     <title>Playlist</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cyborg/bootstrap.min.css" rel="stylesheet" integrity="sha384-D9XILkoivXN+bcvB2kSOowkIvIcBbNdoDQvfBNsxYAIieZbx8/SI4NeUvrRGCpDi" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+    <!-- includes the links for style sheets and  -->
+    <%- include('./templates/headLinks'); %>
 </head>
 
 <body>
-
+<!-- include for the navbar -->
 <%- include('./templates/header'); %>
 
 
@@ -87,46 +79,51 @@
         </div>
 
     </div>
+    <% }else {%>
+    <div class="col-md-4" align="center">
+        <div class="list-group">
+            <a id="youbutt" href="#" class="list-group-item active">
+                Youtube
+            </a>
+            <%if(!(playlists === null)){%>
+            <%var pls = JSON.parse(playlists);%>
+            <div class="panel-group">
+                <%for(var i = 0; i < pls.plids.length;i++){%>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" href='#collapse<%=i%>'><%=pls.plids[i].title%></a>
+                        </h4>
+                    </div>
+                    <div id='collapse<%=i%>' class="collapse">
+                        <ul id = '<%=pls.plids[i].id%>' class="list-group">
 
-</div>
-<% }else {%>
-<div class="col-md-4" align="center">
-    <div class="list-group">
-        <a id="youbutt" href="#" class="list-group-item active">
-            Youtube
-        </a>
-        <%if(!(playlists === null)){%>
-        <%var pls = JSON.parse(playlists);%>
-        <div class="panel-group">
-            <%for(var i = 0; i < pls.plids.length;i++){%>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" href='#collapse<%=i%>'><%=pls.plids[i].title%></a>
-                    </h4>
-                </div>
-                <div id='collapse<%=i%>' class="collapse">
-                    <ul id = '<%=pls.plids[i].id%>' class="list-group">
+                        </ul>
 
-                    </ul>
-
-                </div>
+                    </div>
+                <%}%>
+            </div>
             <%}%>
-        </div>
-        <%}%>
 
+        </div>
     </div>
+
+    <!-- <button type = "button" id = 'request-button' class = "btn btn-primary">Check Route</button>-->
+
+    <%}%>
+</div>
 </div>
 
-<!-- <button type = "button" id = 'request-button' class = "btn btn-primary">Check Route</button>-->
 
-<%}%>
+<!-- include for the footer -->
+<div class="row">
+    <%- include('./templates/footer'); %>
+</div>
 
 <!-- include the ajax calls to grab the playlists! -->
 <% include displayplaylists%>
 
 <!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 
 
