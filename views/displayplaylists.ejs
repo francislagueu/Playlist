@@ -34,4 +34,9 @@
             }                
         });
     }
+    $( function() {
+    $( "#spotsort, #buildsort" ).sortable({
+      connectWith: ".connectedSortable"
+    }).disableSelection();
+    } );
 </script>
