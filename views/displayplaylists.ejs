@@ -3,10 +3,12 @@
     var tubeauth = <%if(locals.authorized){%>true;<%} else {%>false;<%}%>
     var ids; 
     var spotauth = <%if(locals.spotauth){%>true;<%} else {%>false;<%}%>
-    
+    //get the spotify playlists if spotify has been authorized by the user.
+    if(spotauth){
 
+    }
+    //get the youtube playlists if youtube has been authorized by the user.
     if(tubeauth){
-        //need to make an async call to playlist item function down below.
         $.get({
             url: './home/playlistinfo',
             dataType: 'json',

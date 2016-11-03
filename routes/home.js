@@ -15,7 +15,6 @@ router.get('/', function(req, res,next) {
 		if(req.session.authorized || req.session.spotauth){
 			renderView(req,res,req.session.authorized, req.session.spotauth);
 		}
-		
 		else{
 			req.session.code = null;
 			req.session.playlists=null;
@@ -77,31 +76,13 @@ router.get('/playlist?:id',function(req,res,next){
 
 });
 
-// router.get('/spotplaylist',function(){
-// 	if(req.session.spotauth){
-
-// 	}
-// });
-
-
+router.get('/spotplaylistinfo',function(){
+	if(req.session.spotauth){
+		spotifyapi.getUserPlaylists()
+	}
+});
 
 
-function setupPlObjects(req,res,list){
-	var playlists = {'plids':[]};
-	if(!(null ===list)){
-		for(var i = 0; i < list.length; i++){
-			//for each playlist request its items.
-			var info = {"id": list[i].id,
-						"title": list[i].snippet.title
-						};
-			//looks kinda hacky, I know :/						
-			playlists['plids']['' + i] = info;
-		}
-		
-		
-	}	
-	renderView(req,res,JSON.stringify(playlists));
-}
 function renderView(req,res, google, spotify){
 	res.render('home', {title: 'Playlist-Manager',
 							authorized: google, 
