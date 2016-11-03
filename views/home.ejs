@@ -13,9 +13,9 @@
 
 
 <h1></h1>
-<% if(!authorized) { %>
-<div class="center"></div>
+
 <div class="row" style="font-size: 200%; margin-top: 90px;">
+    <% if(!authorized) { %>
     <div class="col-sm-4" align="center">
         <div class="list-group">
             <a id="spotbutt" href = "#" class="list-group-item active">
@@ -36,8 +36,6 @@
         </a>
     </div>
 <%}else {%>
-<div class="center"></div>
-<div class="row" style="font-size: 200%; margin-top: 90px;">
     <div class="col-sm-4" align="center">
         <div class="list-group">
             <a id="spotbutt" href = "#" class="list-group-item active">
