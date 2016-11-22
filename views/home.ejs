@@ -15,6 +15,7 @@
 <h1></h1>
 
 <div class="row" style="font-size: 200%; margin-top: 90px;">
+<<<<<<< HEAD
     <% if(!authorized) { %>
     <div class="col-sm-4" align="center">
         <div class="list-group">
@@ -23,9 +24,31 @@
             </a>
             <div class="jumbotron">
                 <a href="/spotify" class="btn btn-success"><span class="fa fa-spotify" style="padding: 15px; font-size: 200%;"> Spotify</span></a>
+=======
+    <% if(!spotauth){%>
+        <div class="col-sm-4" align="center">
+            <div class="list-group">
+                <a id="spotbutt" href = "#" class="list-group-item active">
+                    Spotify
+                </a>
+                <div class="jumbotron">
+                    <a href="/spotify" class="btn btn-success"><span class="fa fa-spotify" style="padding: 15px; font-size: 150%;"> Spotify</span></a>
+                </div>
+>>>>>>> Bryan
             </div>
         </div>
-    </div>
+    <%} else {%> 
+        <div class="col-sm-4" align="center">
+            <div class="list-group">
+                <a id="spotbutt" href = "#" class="list-group-item active">
+                    Spotify
+                </a>
+            <div class = "panel-group" id = "spotify-playlists"></div>
+            </div>
+        </div>
+    <%}%>
+
+    <!-- Reserved section for the builder, coming up next :) -->
     <div class="col-sm-4" align="center">
         <a href="#" class="list-group-item active">
             Builder
@@ -64,7 +87,7 @@
     </div>
 <%}%>
 
-    <!-- place the authorized check here, if it's not authorized display this, else, display the playlists this user owns.-->
+    <!--googles not authorized, don't show the playlists.-->
     <% if(!authorized){ %>
     <div class="col-md-4" align="center">
         <div class="list-group">
@@ -77,12 +100,18 @@
         </div>
 
     </div>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> Bryan
     <% }else {%>
     <div class="col-md-4" align="center">
         <div class="list-group">
             <a id="youbutt" href="#" class="list-group-item active">
                 Youtube
             </a>
+<<<<<<< HEAD
             <%if(!(playlists === null)){%>
             <%var pls = JSON.parse(playlists);%>
             <div class="panel-group">
@@ -131,7 +160,14 @@
 <div class="row">
     <%- include('./templates/footer'); %>
 </div>
+=======
+            <div class="panel-group" id = "youtube-playlists"></div>
+        </div>
+    </div>
+>>>>>>> Bryan
 
+    <%}%>
+</div>
 <!-- include the ajax calls to grab the playlists! -->
 <% include displayplaylists%>
 

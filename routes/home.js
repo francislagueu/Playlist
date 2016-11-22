@@ -12,29 +12,18 @@ var tubeitemparams = {playlistId: null, part: 'snippet'};
 
 /* Main page where the playlists are located. */
 router.get('/', function(req, res,next) {
-		if(req.session.authorized){
-			function beginRequest(callback){
-				youtube.playlists.list(infoparams,function(err, response){
-						var pls = null;
-						if(!err){
-							pls = response.items;
-							callback(req,res, pls);
-						}
-						else{
-							console.log("Error occurred grabbing playlist data!",err);
-						}
+		if(req.session.authorized || req.session.spotauth){
 
-				});
-			}
-			beginRequest(setupPlObjects);	
+			renderView(req,res,req.session.authorized, req.session.spotauth);
+
 		}
-		
 		else{
 			req.session.code = null;
 			req.session.playlists=null;
-			req.session.authorized = null;
+			req.session.authorized = false;
 			req.session.googleauth= null;
-			renderView(req,res,null);
+			req.session.spotauth = false;
+			renderView(req,res,req.session.authorized, req.session.spotauth);
 			pls = null;
 		}
 		
@@ -52,7 +41,7 @@ router.get('/playlistinfo', function(req, res, next){
 							for(var i = 0; i < pls.length; i++){
 								//for each playlist request its items.
 								info = {"id": pls[i].id,
-											"title": pls[i].snippet.title
+										"title": pls[i].snippet.title
 											};
 								//looks kinda hacky, I know :/						
 								playlists['plids']['' + i] = info;
@@ -74,7 +63,6 @@ router.get('/playlistinfo', function(req, res, next){
 router.get('/playlist?:id',function(req,res,next){
 	if(req.session.authorized){
 		 tubeitemparams.playlistId = req.query.id;
-		 console.log(req.query.id);
 		 youtube.playlistItems.list(tubeitemparams, function(err, response){
 
 		 	if(!err){
@@ -89,35 +77,63 @@ router.get('/playlist?:id',function(req,res,next){
 
 });
 
-// router.get('/spotplaylist',function(){
-// 	if(req.session.spotauth){
+router.get('/spotplaylistinfo',function(req,res,next){
+	var playlists = {'items': []};
+	var myid, info;
+	if(req.session.spotauth){
+		spotifyapi.getMe().then(function(userdata){
+			myid = userdata.body.id;
+			spotifyapi.getUserPlaylists("" + myid).then(function(data){
+				for(var i = 0; i < data.body.items.length; i++){
+					info = {
+						'id' : data.body.items[i].id,
+						'title': data.body.items[i].name,
+						'ownerid': data.body.items[i].owner.id,
+						'trackcount': data.body.items[i].tracks.total
 
-// 	}
-// });
+					};
+					playlists['items'][''+i] = info;
+				}
 
-
-
-
-function setupPlObjects(req,res,list){
-	var playlists = {'plids':[]};
-	if(!(null ===list)){
-		for(var i = 0; i < list.length; i++){
-			//for each playlist request its items.
-			var info = {"id": list[i].id,
-						"title": list[i].snippet.title
-						};
-			//looks kinda hacky, I know :/						
-			playlists['plids']['' + i] = info;
-		}
+				res.json(playlists);
+			},function(err){
+				console.log("error getting spotify playlist meta data: ", err);
+				res.end();
+			});
+		},
+		function(err){
+			console.log("error getting user id: ", err);
+			res.end();
+		});
 		
-		
-	}	
-	renderView(req,res,JSON.stringify(playlists));
-}
-function renderView(req,res, playlist){
+	}
+});
+router.get('/spotplaylist?', function(req,res,next){
+	var playlistid=req.query.id;
+	var ownerid = req.query.ownerid;
+	var playlist = {'items':[]};
+	if(req.session.spotauth){
+		spotifyapi.getPlaylist(ownerid, playlistid).then(function(data){
+			var tracks = data.body.tracks.items;
+			for(var i=0; i < tracks.length; i++){
+				var item = {
+					'id': tracks[i].track.id,
+					'name': tracks[i].track.name
+				};
+				playlist['items'][i] = item;
+			}
+			res.json(playlist);
+		},
+		function(err){
+			console.log("There was an error: " ,err);
+		});
+	}
+});
+
+function renderView(req,res, google, spotify){
 	res.render('home', {title: 'Playlist-Manager',
-							authorized: req.session.authorized, 
-							playlists: playlist});
+							authorized: google, 
+							spotauth: spotify});
 
 	res.end();
 }
