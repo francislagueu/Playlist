@@ -20,7 +20,7 @@ function prepCredentials(req,res,next){
 		spotifyapi.setAccessToken(data.body['access_token']);
 		spotifyapi.setRefreshToken(data.body['refresh_token']);
 		req.session.spotauth = true;
-		res.status(200).redirect('/home');
+		res.redirect('/home');
 	},
 	function(err){
 		req.session.spotauth = false;

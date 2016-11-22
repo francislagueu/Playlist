@@ -30,7 +30,9 @@
                 <a id="spotbutt" href = "#" class="list-group-item active">
                     Spotify
                 </a>
-                <div class="panel-group" id = "spotify-playlists"></div>
+                <div class="jumbotron">
+                    <a href="/spotify" class="btn btn-success"><span class="fa fa-spotify" style="padding: 15px; font-size: 150%;"> Spotify</span></a>
+                </div>
             </div>
         </div>
     <%} else {%> 
@@ -39,7 +41,7 @@
                 <a id="spotbutt" href = "#" class="list-group-item active">
                     Spotify
                 </a>
-                
+            <div class = "panel-group" id = "spotify-playlists"></div>
             </div>
         </div>
     <%}%>
@@ -69,7 +71,7 @@
 
     </div>
 
-</div>
+
     <% }else {%>
     <div class="col-md-4" align="center">
         <div class="list-group">
@@ -80,8 +82,8 @@
         </div>
     </div>
 
-<%}%>
-
+    <%}%>
+</div>
 <!-- include the ajax calls to grab the playlists! -->
 <% include displayplaylists%>
 

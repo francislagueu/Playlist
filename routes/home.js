@@ -13,7 +13,9 @@ var tubeitemparams = {playlistId: null, part: 'snippet'};
 /* Main page where the playlists are located. */
 router.get('/', function(req, res,next) {
 		if(req.session.authorized || req.session.spotauth){
+
 			renderView(req,res,req.session.authorized, req.session.spotauth);
+
 		}
 		else{
 			req.session.code = null;
@@ -61,7 +63,6 @@ router.get('/playlistinfo', function(req, res, next){
 router.get('/playlist?:id',function(req,res,next){
 	if(req.session.authorized){
 		 tubeitemparams.playlistId = req.query.id;
-		 console.log(req.query.id);
 		 youtube.playlistItems.list(tubeitemparams, function(err, response){
 
 		 	if(!err){
@@ -76,12 +77,58 @@ router.get('/playlist?:id',function(req,res,next){
 
 });
 
-router.get('/spotplaylistinfo',function(){
+router.get('/spotplaylistinfo',function(req,res,next){
+	var playlists = {'items': []};
+	var myid, info;
 	if(req.session.spotauth){
-		spotifyapi.getUserPlaylists()
+		spotifyapi.getMe().then(function(userdata){
+			myid = userdata.body.id;
+			spotifyapi.getUserPlaylists("" + myid).then(function(data){
+				for(var i = 0; i < data.body.items.length; i++){
+					info = {
+						'id' : data.body.items[i].id,
+						'title': data.body.items[i].name,
+						'ownerid': data.body.items[i].owner.id,
+						'trackcount': data.body.items[i].tracks.total
+
+					};
+					playlists['items'][''+i] = info;
+				}
+
+				res.json(playlists);
+			},function(err){
+				console.log("error getting spotify playlist meta data: ", err);
+				res.end();
+			});
+		},
+		function(err){
+			console.log("error getting user id: ", err);
+			res.end();
+		});
+		
 	}
 });
-
+router.get('/spotplaylist?', function(req,res,next){
+	var playlistid=req.query.id;
+	var ownerid = req.query.ownerid;
+	var playlist = {'items':[]};
+	if(req.session.spotauth){
+		spotifyapi.getPlaylist(ownerid, playlistid).then(function(data){
+			var tracks = data.body.tracks.items;
+			for(var i=0; i < tracks.length; i++){
+				var item = {
+					'id': tracks[i].track.id,
+					'name': tracks[i].track.name
+				};
+				playlist['items'][i] = item;
+			}
+			res.json(playlist);
+		},
+		function(err){
+			console.log("There was an error: " ,err);
+		});
+	}
+});
 
 function renderView(req,res, google, spotify){
 	res.render('home', {title: 'Playlist-Manager',
