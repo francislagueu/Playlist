@@ -5,55 +5,52 @@
     <title>Playlist</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cyborg/bootstrap.min.css" rel="stylesheet" integrity="sha384-D9XILkoivXN+bcvB2kSOowkIvIcBbNdoDQvfBNsxYAIieZbx8/SI4NeUvrRGCpDi" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
-
+    <%- include('./templates/headLinks'); %>
 </head>
 
 <body>
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
-        <div>
-            <a class="navbar-brand fa fa-music" href="/" style="font-size: 200%;"><b> PlaylistManager </b><i class="fa fa-play" aria-hidden="true"></i></a>
-        </div>
-        <ul class="nav navbar-nav">
-            <!-- any rightside buttons go here-->
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-        </ul>
-    </div>
-</nav>
+
+<%- include('./templates/header'); %>
+
+
 <h1></h1>
 
 <div class="center"></div>
 <div class="row" style="font-size: 200%; margin-top: 90px;">
-    <div class="col-sm-4" align="center">
-        <div class="list-group">
-            <a id="spotbutt" href = "#" class="list-group-item active">
-                Spotify
-            </a>
-            <div class="jumbotron">
-                <a href="/spotify" class="btn btn-success"><span class="fa fa-spotify" style="padding: 15px; font-size: 150%;"> Spotify</span></a>
+    <% if(!spotauth){%>
+        <div class="col-sm-4" align="center">
+            <div class="list-group">
+                <a id="spotbutt" href = "#" class="list-group-item active">
+                    Spotify
+                </a>
+                <div class="jumbotron">
+                    <a href="/spotify" class="btn btn-success"><span class="fa fa-spotify" style="padding: 15px; font-size: 150%;"> Spotify</span></a>
+                </div>
             </div>
         </div>
-    </div>
+    <%} else {%> 
+        <div class="col-sm-4" align="center">
+            <div class="list-group">
+                <a id="spotbutt" href = "#" class="list-group-item active">
+                    Spotify
+                </a>
+            <div class = "panel-group" id = "spotify-playlists"></div>
+            </div>
+        </div>
+    <%}%>
+
+    <!-- Reserved section for the builder, coming up next :) -->
     <div class="col-sm-4" align="center">
         <a href="#" class="list-group-item active">
             Builder
         </a>
-        <a href="#" class="list-group-item"  style="font-size: 75%;">I love
+        <a href="#" class="list-group-item">I love
         </a>
-        <a href="#" class="list-group-item"  style="font-size: 75%;">Music and stuff
+        <a href="#" class="list-group-item">Music and stuff
         </a>
     </div>
 
-    <!-- place the authorized check here, if it's not authorized display this, else, display the playlists this user owns.-->
+    <!--googles not authorized, don't show the playlists.-->
     <% if(!authorized){ %>
     <div class="col-md-4" align="center">
         <div class="list-group">
@@ -61,54 +58,52 @@
                 Youtube
             </a>
             <div class="jumbotron">
-                <a href="/oauth" class="btn btn-danger"><span class="fa fa-youtube" style="padding: 15px; font-size: 150%;"> YouTube</span></a>
+                <a href="/oauth" class="btn btn-danger"><span class="fa fa-youtube" style="padding: 15px; font-size: 200%;"> YouTube</span></a>
             </div>
         </div>
-
     </div>
-
-</div>
-<% }else {%>
-<div class="col-md-4" align="center">
-    <div class="list-group">
-        <a id="youbutt" href="#" class="list-group-item active">
-            Youtube
-        </a>
-        <%if(!(playlists === null)){%>
-        <%var pls = JSON.parse(playlists);%>
-        <div class="panel-group">
-            <%for(var i = 0; i < pls.plids.length;i++){%>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" href='#collapse<%=i%>'><%=pls.plids[i].title%></a>
-                    </h4>
-                </div>
-                <div id='collapse<%=i%>' class="collapse">
-                    <ul id = '<%=pls.plids[i].id%>' class="list-group">
-
-                    </ul>
-
-                </div>
-            <%}%>
+    <% }else {%>
+    <div class="col-md-4" align="center">
+        <div class="list-group">
+            <a id="youbutt" href="#" class="list-group-item active">
+                Youtube
+            </a>
+            <div class="panel-group" id = "youtube-playlists"></div>
         </div>
-        <%}%>
-
     </div>
+    <%}%>
+</div>
+<!-- include the ajax calls to grab the playlists! -->
+
+
+<div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
+    <div class="mdl-snackbar__text"></div>
+    <button class="mdl-snackbar__action" type="button"></button>
 </div>
 
-<!-- <button type = "button" id = 'request-button' class = "btn btn-primary">Check Route</button>-->
+<script>
+    r(function(){
+        var snackbarContainer = document.querySelector('#demo-toast-example');
+        var data = { message: 'Welcome'};
+        snackbarContainer.MaterialSnackbar.showSnackbar(data);
+    });
+    function r(f){ /in/.test(document.readyState)?setTimeout('r('+f+')',9):f()}
+</script>
 
-<%}%>
-
-<!-- include the ajax calls to grab the playlists! -->
-<% include displayplaylists%>
-
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script
+  src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+  integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+  crossorigin="anonymous"></script>
+  
+<% include displayplaylists%>
+<%- include('./templates/footer'); %>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
+
+<%- include('./templates/bodyScript'); %>
 
 </body>
 </html>

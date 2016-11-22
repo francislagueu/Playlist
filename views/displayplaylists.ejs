@@ -1,9 +1,66 @@
 <script type = "text/javascript">
     //check if the google authorized variable is set.
     var tubeauth = <%if(locals.authorized){%>true;<%} else {%>false;<%}%>
-    var ids; 
+    var ids, spotids; 
+    var spotauth = <%if(locals.spotauth){%>true;<%} else {%>false;<%}%>
+    //get the spotify playlists if spotify has been authorized by the user.
+    if(spotauth){
+       $.get({
+        url: './home/spotplaylistinfo',
+        dataType: 'json',
+        success: function(data){
+            spotids = data.items;
+            //console.log("full list is: ", spotids);
+            for(var i = 0; i < spotids.length; i++){
+                var spotid = '' + spotids[i].id;
+                var spottitle = '' + spotids[i].title;
+                var ownerid = '' + spotids[i].ownerid;
+                $("#spotify-playlists.panel-group").append('\
+                        <div class="panel panel-default">\
+                            <div class="panel-heading">\
+                                <h4 class="panel-title">\
+                                    <a data-toggle="collapse" href="#collapse' + spotid + '">' + spottitle + '</a>\
+                                </h4>\
+                            </div>\
+                            <div id="collapse' + spotid + '" class="collapse">\
+                                <ul id = ' + spotid + ' class="list-group">\
+                                </ul>\
+                            </div>\
+                        </div>\
+                        \
+                    ');
+
+                (function(spotid, ownerid){
+                    $.get({
+                        url: './home/spotplaylist',
+                        data: {
+                            id: spotid,
+                            ownerid: ownerid
+                        },
+                        dataType:'json',
+                        success: function(data){
+                            //for each item in the playlist, add an item to the main spotify playlist.
+                            
+                            for(var j = 0; j < data['items'].length; j++){
+                                $("ul#" + spotid).prepend('<li class = "list-group-item">' + data['items']['' + j].name+'</li>');
+                                
+                            }
+                        },
+                        error: function(err){
+                            console.log("error getting items for spotify playlists to view: ", err);
+                        }
+                    });
+                })(spotid, ownerid);
+            }
+
+        },
+        error: function(err){
+            console.log(err);
+        }
+       });
+    }
+    //get the youtube playlists if youtube has been authorized by the user.
     if(tubeauth){
-        //need to make an async call to playlist item function down below.
         $.get({
             url: './home/playlistinfo',
             dataType: 'json',
@@ -11,9 +68,26 @@
                 ids = data['plids'];
                 for(var i = 0; i < ids.length; i++){
                     var id = '' + ids[i].id;
+                    var title = '' + ids[i].title;
+                    //create the title display for each item. Might find a cleaner solution down the line...
+                    $("#youtube-playlists.panel-group").append('\
+                        <div class="panel panel-default">\
+                            <div class="panel-heading">\
+                                <h4 class="panel-title">\
+                                    <a data-toggle="collapse" href="#collapse' + id + '">' + title + '</a>\
+                                </h4>\
+                            </div>\
+                            <div id="collapse' + id + '" class="collapse">\
+                                <ul id = ' + id + ' class="list-group">\
+                                </ul>\
+                            </div>\
+                        </div>\
+                        \
+                    ');
+
                     (function(id){
                     $.get({
-                        url: './home/playlists',
+                        url: './home/playlist',
                         data: { id: id},
                         dataType:'json',
                         success: function(data, stat){
@@ -34,4 +108,10 @@
             }                
         });
     }
+    
+    $( function() {
+    $( "#spotsort, #buildsort" ).sortable({
+      connectWith: ".connectedSortable"
+    }).disableSelection();
+    } );
 </script>
