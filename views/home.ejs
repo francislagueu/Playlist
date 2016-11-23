@@ -6,6 +6,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%- include('./templates/headLinks'); %>
+
+    
+
 </head>
 
 <body>
@@ -45,10 +48,10 @@
             Builder
         </a>
 
-        <form id="search-form-builder">
+        <form id="search-form">
                 <div class="form-group row">
                     <div class="col-sm-8">
-                        <input type="text" id="builderQuery" value="" class="form-control" placeholder="Search Music">
+                        <input type="text" id="query" value="" class="form-control" placeholder="Search Music">
                     </div>
                     <div class="col-sm-2">
                         <input type="submit" id="builderSearch" class="btn btn-success" value="Search" />
@@ -56,12 +59,9 @@
                 </div>
         </form>
 
-
-
-
-
-
-
+        <div class="container">
+            <div class="panel-group" id="results"></div>
+        </div>
 
         <a href="#" class="list-group-item"  style="font-size: 75%;">I love
         </a>
@@ -92,8 +92,64 @@
     </div>
     <%}%>
 </div>
-<!-- include the ajax calls to grab the playlists! -->
 
+<%- include('./templates/bodyScript'); %>
+<script id="results-template" type="text/x-handlebars-template">
+    {{#each tracks.items}}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#results" href="#{{id}}">{{name}}</a>
+                </h4>
+            </div>
+            <div id="{{id}}" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div> Artist name = {{artists.0.name}} </div>
+                    <div> Album name = {{album.name}} </div>
+                </div>
+            </div>
+        </div>
+    {{/each}}
+</script>
+
+
+<script type="text/javascript">
+        // find template and compile it
+        var templateSource = document.getElementById('results-template').innerHTML,
+            template = Handlebars.compile(templateSource),
+            resultsPlaceholder = document.getElementById('results'),
+            playingCssClass = 'playing',
+            audioObject = null;
+
+        var fetchTracks = function (albumId, callback) {
+            $.ajax({
+                url: 'https://api.spotify.com/v1/albums/' + albumId,
+                success: function (response) {
+                    callback(response);
+                }
+            });
+        };
+
+        var searchAlbums = function (query) {
+            $.ajax({
+                url: 'https://api.spotify.com/v1/search',
+                data: {
+                    q: query,
+                    type: 'track'
+                },
+                success: function (response) {
+                    resultsPlaceholder.innerHTML = template(response);
+                }
+            });
+        };
+
+        document.getElementById('search-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            searchAlbums(document.getElementById('query').value);
+        }, false);
+    </script>
+
+<!-- include the ajax calls to grab the playlists! -->
 
 <div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
     <div class="mdl-snackbar__text"></div>
@@ -122,7 +178,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 
-<%- include('./templates/bodyScript'); %>
+
 
 </body>
 </html>
