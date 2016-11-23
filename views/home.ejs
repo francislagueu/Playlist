@@ -18,7 +18,7 @@
 <div class="center"></div>
 <div class="row" style="font-size: 200%; margin-top: 90px;">
     <% if(!spotauth){%>
-        <div class="col-sm-4" align="center">
+        <div class="col-sm-4" align="center" >
             <div class="list-group">
                 <a id="spotbutt" href = "#" class="list-group-item active">
                     Spotify
@@ -29,27 +29,29 @@
             </div>
         </div>
     <%} else {%> 
-        <div class="col-sm-4" align="center">
-            <div class="list-group">
+        <div class="col-sm-4" align="center" >
+            <div class="list-group" >
                 <a id="spotbutt" href = "#" class="list-group-item active">
                     Spotify
                 </a>
-            <div class = "panel-group" id = "spotify-playlists"></div>
+            <div class = "panel-group spotsort" id = "spotifyplaylists"></div>
             </div>
         </div>
     <%}%>
 
     <!-- Reserved section for the builder, coming up next :) -->
-    <div class="col-sm-4" align="center">
-        <a href="#" class="list-group-item active">
+    <div class = "col-sm-4" align = "center">
+        <a href = "#" class = "list-group-item active">
             Builder
         </a>
-        <a href="#" class="list-group-item">I love
-        </a>
-        <a href="#" class="list-group-item">Music and stuff
-        </a>
+        <div id = "buildsort" class="connectedSortable" align="center">
+            
+            <a href="#" class="list-group-item">I love
+            </a>
+            <a href="#" class="list-group-item">Music and stuff
+            </a>
+        </div>
     </div>
-
     <!--googles not authorized, don't show the playlists.-->
     <% if(!authorized){ %>
     <div class="col-md-4" align="center">
@@ -79,11 +81,13 @@
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script
+<!-- <script
   src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
   integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
-  crossorigin="anonymous"></script>
-  
+  crossorigin="anonymous"></script> -->
+
+
+
 <% include displayplaylists%>
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
