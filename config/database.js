@@ -1,4 +1,5 @@
 module.exports = {
-	url: 'mongodb://localhost:27017/users'
+	url: 'mongodb://<dbuser>:<dbpassword>@ds019638.mlab.com:19638/users'
 
 }
+

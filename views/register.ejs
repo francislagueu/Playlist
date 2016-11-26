@@ -2,33 +2,20 @@
 <html lang="en">
 <head>
   <title>Registration Page</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" type="text/css" href="https://developer.spotify.com/web-api/static/css/cached.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cyborg/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <!-- includes the links for style sheets and  -->
+  <%- include('./templates/headLinks'); %>
+
 </head>
 <body>
 
-<nav class="navbar navbar-inverse navbar-fixed-top">
-  <div class="container-fluid">
-    <div>
-      <a class="navbar-brand" href="/">Playlist</a>
-    </div>
-    <ul class="nav navbar-nav">
-      <!-- any rightside buttons go here-->
-    </ul>
-    <ul class="nav navbar-nav navbar-right">
-      <li><a href="/users/register">Register</a></li>
-      <li><a href="/users/login">Log In</a></li>
-    </ul>
-  </div>
-</nav>
+<!-- include for the navbar -->
+<%- include('./templates/header'); %>
+
 <!-- Start of Form! -->
 <div class="container-fluid centered" style="padding: 38px;">
 
   <h2>Register for Playlist Manager!</h2>
-  <form action="/signup" method="post">
+  <form action="/users/register" method="post">
     <div class = "form-group col-lg-8">
       <label class="col-lg-2 control-label">First Name:</label>
       <div class="col-lg-4">
@@ -79,6 +66,10 @@
   </form>
 
 </div>
+
+<!-- include for the footer -->
+<%- include('./templates/footer'); %>
+<%- include('./templates/bodyScript'); %>
 
 </body>
 </html>
