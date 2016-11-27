@@ -133,7 +133,8 @@ router.get('/spotplaylist?', function(req,res,next){
 function renderView(req,res, google, spotify){
 	res.render('home', {title: 'Playlist-Manager',
 							authorized: google, 
-							spotauth: spotify});
+							spotauth: spotify
+							});
 
 	res.end();
 }
