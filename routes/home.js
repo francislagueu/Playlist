@@ -130,10 +130,38 @@ router.get('/spotplaylist?', function(req,res,next){
 	}
 });
 
+router.post('/createspotifyplaylist', function (req, res, next) {
+	var ownerid = req.query.ownerid;
+	var name = req.body.playlistname;
+	if(req.session.spotauth){
+		spotify.createPlaylist(ownerid, name, {'public':false}).then(function (data) {
+			console.log('Created Playlist ' + data.name);
+        }, function(err){
+			console.log("Something went wrong****", err);
+		});
+	}
+});
+
+router.post('/addtracktospotplaylist', function (req, res, next) {
+	var ownerid = req.query.ownerid;
+	var name = req.body.playlistId;
+	var tracks = [];
+	if(req.session.spotauth){
+		for(var i = 0; i< tracks.length; i++) {
+            spotify.addTracksToPlaylist(ownerid, playlistId, ["spotify:track:tracks[i]"]).then(function (data) {
+
+            }, function (err) {
+				console.log("Error adding track to playlist!!", err);
+            });
+        }
+	}
+})
+
 function renderView(req,res, google, spotify){
 	res.render('home', {title: 'Playlist-Manager',
 							authorized: google, 
-							spotauth: spotify});
+							spotauth: spotify
+							});
 
 	res.end();
 }

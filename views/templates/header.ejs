@@ -16,7 +16,8 @@
     </ul> 
     <% } else { %>
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="/users/logout">Log Out</a></li>
+            <li><a href="#"> Welcome!! <%= user.first_name %></a></li>
+            <li id="logout"><a href="/users/logout">Log Out</a></li>
         </ul> 
     <% } %>
 
