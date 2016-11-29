@@ -147,7 +147,7 @@
         var searchAlbums = function (query) {
             $.ajax({
                 url: 'https://api.spotify.com/v1/search',
-                data: {
+                data: { 
                     q: query,
                     type: 'track'
                 },
@@ -165,6 +165,8 @@
 
 <!-- include the ajax calls to grab the playlists! -->
 
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
     <div class="mdl-snackbar__text"></div>
     <button class="mdl-snackbar__action" type="button"></button>
@@ -182,6 +184,7 @@
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
+
 <!-- <script
   src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
   integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
@@ -191,6 +194,8 @@
 
 <% include displayplaylists%>
 <%- include('./templates/footer'); %>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 
 
