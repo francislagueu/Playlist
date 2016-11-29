@@ -11,6 +11,9 @@ html, body{
     background-repeat:repeat-x;
 }
 
+#logout:hover{
+    background-color: red;
+}
 
 #youbutt
 {
