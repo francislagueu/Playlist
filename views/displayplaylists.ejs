@@ -3,6 +3,7 @@
     var tubeauth = <%if(locals.authorized){%>true;<%} else {%>false;<%}%>
     var ids, spotids; 
     var spotauth = <%if(locals.spotauth){%>true;<%} else {%>false;<%}%>
+
     //get the spotify playlists if spotify has been authorized by the user.
     if(spotauth){
        $.get({
@@ -28,8 +29,7 @@
                             </div>\
                         </div>\
                         \
-                    ');
-
+                ');
                 (function(spotid, ownerid){
                     $.get({
                         url: './home/spotplaylist',
@@ -84,7 +84,6 @@
                         </div>\
                         \
                     ');
-
                     (function(id){
                     $.get({
                         url: './home/playlist',
@@ -108,16 +107,7 @@
             }                
         });
     }
-Sortable.create(spotifyplaylists,{
-    group:"sorting",
-    sort:true,
-    animation:100
-});
-Sortable.create(buildsort, {
-    group: "sorting", 
-    sort: true,
-    animation:100
-});
+
   
 
     
