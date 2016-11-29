@@ -1,0 +1,54 @@
+<script type="text/javascript">
+    var g_access_token = '';
+    var g_username = '';
+    var g_tracks = [];
+
+    var getUsername = function (callback) {
+        var url = 'https://api.spotify.com/v1/me';
+
+        $.ajax(url, {
+            dataType:'json',
+            headers:{
+                'Authorization':'Bearer' + g_access_token
+            },
+            success:function (r) {
+                callback(r.id)
+            },
+            error:function (r) {
+                callback(null)
+            }
+        });
+    }
+
+    var createPlaylist = function ( name, callback) {
+        var username = getUsername();
+        var url = 'https://api.spotify.com/v1/users/' + username +'/playlists';
+        $.ajax(url,{
+            method: 'POST',
+            data: JSON.stringify({
+                'name': name,
+                'public':false
+            }),
+            dataType:'json',
+            headers:{
+                'Authorization':'Bearer '+ g_access_token,
+                'Content-Type':'application/json'
+            },
+            success:function(r){
+                console.log('Create Playlist response ', r);
+                callback(r.id);
+            },
+            error: function (r) {
+                callback(null);
+            }
+
+        });
+    }
+
+    document.getElementById("createplaylist").addEventListener('submit',function (e) {
+        e.preventDefault();
+        createPlaylist(document.getElementById('playlistname').value);
+
+    });
+
+</script>
