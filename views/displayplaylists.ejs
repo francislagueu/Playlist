@@ -16,6 +16,7 @@
                 var spotid = '' + spotids[i].id;
                 var spottitle = '' + spotids[i].title;
                 var ownerid = '' + spotids[i].ownerid;
+
                 $("#spotifyplaylists.panel-group").append('\
                         <div class="panel panel-default ">\
                             <div class="panel-heading " >\
@@ -42,7 +43,7 @@
                             //for each item in the playlist, add an item to the main spotify playlist.
                             
                             for(var j = 0; j < data['items'].length; j++){
-                                $("ul#" + spotid).prepend('<li class = "list-group-item">' + data['items']['' + j].name+'</li>');
+                                $("ul#" + spotid).prepend('<li class = "list-group-item">'+ data['items']['' + j].name+'</li>');
                                 
                             }
                         },

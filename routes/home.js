@@ -10,6 +10,7 @@ var youtube = google.youtube({version: 'v3'});
 var infoparams =  {mine:true, part: 'snippet'};
 var tubeitemparams = {playlistId: null, part: 'snippet'};
 
+//router.use(isLoggedIn() );
 /* Main page where the playlists are located. */
 router.get('/', function(req, res,next) {
 		if(req.session.authorized || req.session.spotauth){
@@ -164,4 +165,6 @@ function renderView(req,res, google, spotify){
 
 	res.end();
 }
+
+
 module.exports = router;
