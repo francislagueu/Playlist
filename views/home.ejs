@@ -5,7 +5,7 @@
     <title>Playlist</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    
     <%- include('./templates/headLinks'); %>
 
     
@@ -107,6 +107,13 @@
     <%}%>
 </div>
 
+<div class="container">
+    <div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar" style="z-index: 3;">
+        <div class="mdl-snackbar__text"></div>
+        <button class="mdl-snackbar__action" type="button"></button>
+    </div>
+</div>
+
 <%- include('./templates/bodyScript'); %>
 <script id="results-template" type="text/x-handlebars-template">
     {{#each tracks.items}}
@@ -167,23 +174,21 @@
 
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
-    <div class="mdl-snackbar__text"></div>
-    <button class="mdl-snackbar__action" type="button"></button>
-</div>
-
-<script>
-    r(function(){
-        var snackbarContainer = document.querySelector('#demo-toast-example');
-        var data = { message: 'Welcome ' + first_name+''};
-        snackbarContainer.MaterialSnackbar.showSnackbar(data);
-    });
-    function r(f){ /in/.test(document.readyState)?setTimeout('r('+f+')',9):f()}
-</script>
-
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
+<script>
+    if (sessionStorage.getItem("hasCodeRunBefore") === null) {
+        r(function(){
+            var snackbarContainer = document.querySelector('#demo-toast-example');
+            var name = '<%= user.first_name %>';
+             var data = { message: 'Welcome ' + name +''};
+            snackbarContainer.MaterialSnackbar.showSnackbar(data);
+        });
+        function r(f){ /in/.test(document.readyState)?setTimeout('r('+f+')',9):f()}
+
+        sessionStorage.setItem("hasCodeRunBefore", true);
+    }
+</script>
 
 <!-- <script
   src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
@@ -194,6 +199,8 @@
 
 <% include displayplaylists%>
 <%- include('./templates/footer'); %>
+
+
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
