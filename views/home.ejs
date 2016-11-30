@@ -6,9 +6,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+
     <%- include('./templates/headLinks'); %>
 
-    
+    <style>
+#div1 {
+    width: 350px;
+    height: 70px;
+    padding: 10px;
+    border: 4px solid #aaaaaa;
+}
+</style>
 
 
 </head>
@@ -26,6 +34,7 @@
         <div class="col-sm-4" align="center" >
             <div class="list-group">
                 <a id="spotbutt" href = "#" class="list-group-item active">
+                    <i class="fa fa-spotify" aria-hidden="true"></i>
                     Spotify
                 </a>
                 <div class="jumbotron">
@@ -37,6 +46,7 @@
         <div class="col-sm-4" align="center" >
             <div class="list-group" >
                 <a id="spotbutt" href = "#" class="list-group-item active">
+                    <i class="fa fa-spotify" aria-hidden="true"></i>
                     Spotify
                 </a>
             <div class = "panel-group spotsort" id = "spotifyplaylists"></div>
@@ -47,7 +57,7 @@
     <!-- Reserved section for the builder, coming up next :) -->
 
      <div class="col-sm-4" align="center">
-        <a href="#" class="list-group-item active">
+        <a href="#" class="list-group-item active" ondrop="drop(event)" >
             Builder
         </a>
 
@@ -66,9 +76,9 @@
             <div class="panel-group" id="results"></div>
         </div>
 
-        <a href="#" class="list-group-item"  style="font-size: 75%;">I love
+        <a href="#" class="list-group-item"  style="font-size: 75%;" >I love
         </a>
-        <a href="#" class="list-group-item"  style="font-size: 75%;">Music and stuff
+        <a href="#" class="list-group-item"  style="font-size: 75%;" >Music and stuff
         </a>
          <form id="createplaylist">
              <div class="form-group row">
@@ -78,6 +88,7 @@
                  <div class="col-sm-2">
                      <input type="submit" id="builderSearch" class="btn btn-success" value="Create" />
                  </div>
+                 
              </div>
          </form>
     </div>
@@ -86,10 +97,12 @@
     <div class="col-md-4" align="center">
         <div class="list-group">
             <a id="youbutt" href="#" class="list-group-item active">
+                <i class="fa fa-youtube-square" aria-hidden="true"></i>
+
                 Youtube
             </a>
             <div class="jumbotron">
-                <a href="/oauth" class="btn btn-danger"><span class="fa fa-youtube" style="padding: 15px; font-size: 200%;"> YouTube</span></a>
+                <a href="/oauth" class="btn btn-danger"><span class="fa fa-youtube" style="padding: 15px; font-size: 200%;" > YouTube</span></a>
             </div>
         </div>
     </div>
@@ -97,6 +110,8 @@
     <div class="col-md-4" align="center">
         <div class="list-group">
             <a id="youbutt" href="#" class="list-group-item active">
+                <i class="fa fa-youtube-square" aria-hidden="true"></i>
+
                 Youtube
             </a>
             <div id="you-content">
@@ -161,6 +176,38 @@
             e.preventDefault();
             searchAlbums(document.getElementById('query').value);
         }, false);
+
+
+
+        /*START OF EXPERIMENTAL DRAG AND DROP CODE*/
+
+        function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    ev.target.appendChild(document.getElementById(data));
+}
+
+
+
+
+
+
+
+
+
+
+
+
+        /*END OF EXPERIMENTAL DRAG AND DROP CODE*/
+
     </script>
 
 <!-- include the ajax calls to grab the playlists! -->
