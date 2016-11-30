@@ -19,7 +19,7 @@ var mongoose = require('mongoose');  //oct 24
 var google = require('googleapis');
 //var login = require('./routes/login')// login routing?  oct23
 
- var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+ var env = process.env.NODE_ENV = process.env.NODE_ENV || 'production';
 var config = require('./config/database')[env];
 //oct 13
 mongoose.connect(config.url);  //oct 24

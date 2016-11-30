@@ -1,5 +1,7 @@
 <!-- include partial for the navigation bar -->
 
+
+
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <div>
@@ -11,8 +13,9 @@
 
     <% if (!user) { %>
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="/users/register">Register</a></li>
-      <li><a href="/users/login">Log In</a></li>
+      
+      <li ><a href ="#" onclick="openNav()">Register/Login</a></li>
+      
     </ul> 
     <% } else { %>
         <ul class="nav navbar-nav navbar-right">
@@ -23,3 +26,7 @@
 
   </div>
 </nav>
+
+
+
+
