@@ -8,10 +8,10 @@
 
     <%- include('./templates/headLinks'); %>
 
-
+<!-- 
     <script type="text/javascript" src="public/scripts/fuzzyset.js"></script>
     <script type="text/javascript" src="public/scripts/wordcache.js"></script>
-    <script type="text/javascript" src="public/scripts/playlist.js"></script>
+    <script type="text/javascript" src="public/scripts/playlist.js"></script> -->
 
     <style>
 #div1 {
@@ -25,7 +25,7 @@
 
 </head>
 
-<body onload="startApp()">
+<!-- <body onload="startApp()"> -->
 
 <%- include('./templates/header'); %>
 
@@ -53,7 +53,7 @@
                     <i class="fa fa-spotify" aria-hidden="true"></i>
                     Spotify
                 </a>
-            <div class = "panel-group spotsort" id = "spotifyplaylists"></div>
+            <div class = "panel-group" id = "spotifyplaylists"></div>
             </div>
         </div>
     <%}%>
@@ -77,7 +77,11 @@
         </form>
 
         <div class="container">
-            <div class="panel-group" id="results"></div>
+            <div class="panel-group" id="results">
+                <ul id="builderlist">
+                    
+                </ul>
+            </div>
         </div>
 
         <a href="#" class="list-group-item"  style="font-size: 75%;" >I love
@@ -153,6 +157,9 @@
 </script>
 
 
+
+<% include displayplaylists%>
+
 <script type="text/javascript">
         // find template and compile it
         var templateSource = document.getElementById('results-template').innerHTML,
@@ -193,39 +200,26 @@
         /*START OF EXPERIMENTAL DRAG AND DROP CODE*/
 
         function allowDrop(ev) {
-    ev.preventDefault();
-}
+            ev.preventDefault();
+        }
 
-function drag(ev) {
-    ev.dataTransfer.setData("text", ev.target.id);
-}
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+        }
 
-function drop(ev) {
-    ev.preventDefault();
-    var data = ev.dataTransfer.getData("text");
-    ev.target.appendChild(document.getElementById(data));
-}
+        function drop(ev) {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+            ev.target.appendChild(document.getElementById(data));
+        }
 
-
-
-
-
-
-
-
-
-
-
-
-        /*END OF EXPERIMENTAL DRAG AND DROP CODE*/
+     /*END OF EXPERIMENTAL DRAG AND DROP CODE*/
 
     </script>
 
 <!-- include the ajax calls to grab the playlists! -->
 
 
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
 <script>
     if (sessionStorage.getItem("hasCodeRunBefore") === null) {
@@ -241,20 +235,14 @@ function drop(ev) {
     }
 </script>
 
-<!-- <script
-  src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
-  integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
-  crossorigin="anonymous"></script> -->
 
 
-
-<% include displayplaylists%>
 <%- include('./templates/footer'); %>
 
 
 <!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+ -->
 
 
 
