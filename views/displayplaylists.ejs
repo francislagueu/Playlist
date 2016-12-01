@@ -60,7 +60,7 @@
                             //for each item in the playlist, add an item to the main spotify playlist.
                             for(var j = 0; j < data['items'].length; j++){
                                 $("ul#" + spotid).append('<li id = '+ data['items']['' + j].id +' class = "list-group-item">\
-                                    <img src="http://all-len-all.com/wp-content/uploads/2014/04/fat-duck.jpg" align="left" width="42" height="42">\
+                                    <img src="' + data['items']['' + j].albumart + '" align="left" width="30" height="30">\
                                     ' + data['items']['' + j].name+'\
                                     </li>\
                                     \

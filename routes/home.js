@@ -154,7 +154,8 @@ router.get('/spotplaylist?', function(req,res,next){
 			for(var i=0; i < tracks.length; i++){
 				var item = {
 					'id': tracks[i].track.id,
-					'name': tracks[i].track.name
+					'name': tracks[i].track.name,
+					'albumart': tracks[i].track.album.images[0].url
 				};
 				playlist['items'][i] = item;
 			}
