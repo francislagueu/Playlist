@@ -77,15 +77,12 @@ router.get('/playlist?:id',function(req,res,next){
 		 	if(!err){
 		 		if(!(itemsResponse.items == 'undefined') && !(itemsResponse.items.length == 0)){
 		 			for(var i = 0; i < itemsResponse.items.length; i ++){
-		 				
 		 				idlist = idlist + itemsResponse.items[i].snippet.resourceId.videoId;
 		 				if(!(i == itemsResponse.items.length-1)){
 		 					idlist= idlist + ',';
 		 				}
-
 		 			}
 		 			//split the string into an array
-		 			
 		 			youtube.videos.list({part: 'snippet', id: idlist}, function(err, videosResponse){
 		 				if(!err){
 		 					itemcount = 0;

@@ -66,7 +66,7 @@
                                     \
                                     ');
                                 //throw some data to the click handler of each item.
-                                $("li#" + data['items']['' + j].id).click(
+                                $("ul#" + spotid + " > li#" + data['items']['' + j].id).click(
                                     {
                                         type: "li",
                                         id:data['items']['' + j].id,
@@ -75,8 +75,6 @@
                                     },
                                     appendToBuilder
                                     );
-                                
-
                             }
 
                         },
@@ -126,12 +124,20 @@
                         success: function(data, stat){
                             for(var j = 0; j < data.items.length; j++){
 
-                                $("ul#" + id).append('<li class = "list-group-item">\
+                                $("ul#" + id).append('<li id = "' + data.items[j].vidid +'" class = "list-group-item">\
                                     <img src="https://img.youtube.com/vi/' + data.items[j].vidid + '/default.jpg" align="left" width="42" height="42">\
                                     ' + data.items[j].snippet.title+'\
                                     </li>\
                                     \
                                     ');
+                                $("ul#" + id +  " > li#" + data.items[j].vidid).click(
+                                {
+                                    type: "li",
+                                    id: data.items[j].vidid,
+                                    name: data.items[j].snippet.title,
+                                    artist: "not added yet"
+                                },
+                                appendToBuilder);
                             }
                         },
                         error: function(err){
