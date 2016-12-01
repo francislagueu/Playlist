@@ -84,13 +84,17 @@ router.get('/playlist?:id',function(req,res,next){
 		 				}
 
 		 			}
+		 			//split the string into an array
+		 			
 		 			youtube.videos.list({part: 'snippet', id: idlist}, function(err, videosResponse){
 		 				if(!err){
 		 					itemcount = 0;
+		 					idlist = idlist.split(",");
 		 					for(var j = 0; j < videosResponse.items.length; j ++){
 		 						if(videosResponse.items[j].snippet.categoryId === '10'){
 		 							itemlist[itemcount] = videosResponse.items[j];
 		 							itemlist[itemcount].id = itemsResponse.items[j].snippet.id;
+		 							itemlist[itemcount].vidid = idlist[j];
 		 							itemcount++;
 		 						}
 		 					}
