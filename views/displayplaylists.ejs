@@ -59,7 +59,12 @@
                         success: function(data){
                             //for each item in the playlist, add an item to the main spotify playlist.
                             for(var j = 0; j < data['items'].length; j++){
-                                $("ul#" + spotid).append('<li id = '+ data['items']['' + j].id +' class = "list-group-item">' + data['items']['' + j].name+'</li>');
+                                $("ul#" + spotid).append('<li id = '+ data['items']['' + j].id +' class = "list-group-item">\
+                                    <img src="http://all-len-all.com/wp-content/uploads/2014/04/fat-duck.jpg" align="left" width="42" height="42">\
+                                    ' + data['items']['' + j].name+'\
+                                    </li>\
+                                    \
+                                    ');
                                 //throw some data to the click handler of each item.
                                 $("li#" + data['items']['' + j].id).click(
                                     {
@@ -121,7 +126,12 @@
                         success: function(data, stat){
                             for(var j = 0; j < data.items.length; j++){
 
-                                $("ul#" + id).append('<li class = "list-group-item">' + data.items[j].snippet.title+'</li>');
+                                $("ul#" + id).append('<li class = "list-group-item">\
+                                    <img src="http://all-len-all.com/wp-content/uploads/2014/04/fat-duck.jpg" align="left" width="42" height="42">\
+                                    ' + data.items[j].snippet.title+'\
+                                    </li>\
+                                    \
+                                    ');
                             }
                         },
                         error: function(err){
