@@ -2,13 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="517b96c1-2034-464d-8a30-1ad177001999" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/scripts/PlaylistSearch.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/npm-debug.log" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/stylesheets/style.css" afterPath="$PROJECT_DIR$/public/stylesheets/style.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/home.js" afterPath="$PROJECT_DIR$/routes/home.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/displayplaylists.ejs" afterPath="$PROJECT_DIR$/views/displayplaylists.ejs" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/home.ejs" afterPath="$PROJECT_DIR$/views/home.ejs" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/templates/bodyScript.ejs" afterPath="$PROJECT_DIR$/views/templates/bodyScript.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/templates/headLinks.ejs" afterPath="$PROJECT_DIR$/views/templates/headLinks.ejs" />
     </list>
     <ignored path="Playlist.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -95,30 +94,26 @@
         <entry file="file://$PROJECT_DIR$/views/displayplaylists.ejs">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="780">
-              <caret line="52" column="27" lean-forward="true" selection-start-line="52" selection-start-column="27" selection-end-line="52" selection-end-column="27" />
+              <caret line="52" column="27" lean-forward="false" selection-start-line="52" selection-start-column="27" selection-end-line="52" selection-end-column="27" />
               <folding>
-                <marker date="1480617875000" expanded="true" signature="1478:2053" ph="..." />
-                <marker date="1480617875000" expanded="true" signature="1536:1786" ph="..." />
-                <marker date="1480617875000" expanded="true" signature="1595:1597" ph="..." />
-                <marker date="1480617875000" expanded="true" signature="1595:1750" ph="..." />
-                <marker date="1480617875000" expanded="true" signature="1867:2021" ph="..." />
-                <marker date="1480617875000" expanded="true" signature="4473:4641" ph="..." />
-                <marker date="1480617875000" expanded="true" signature="4522:4610" ph="..." />
+                <marker date="1480635506000" expanded="true" signature="1478:2053" ph="..." />
+                <marker date="1480635506000" expanded="true" signature="1536:1786" ph="..." />
+                <marker date="1480635506000" expanded="true" signature="1595:1597" ph="..." />
+                <marker date="1480635506000" expanded="true" signature="1595:1750" ph="..." />
+                <marker date="1480635506000" expanded="true" signature="1867:2021" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="home.ejs" pinned="false" current-in-tab="true">
+      <file leaf-file-name="home.ejs" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/home.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="102" column="16" lean-forward="false" selection-start-line="102" selection-start-column="16" selection-end-line="102" selection-end-column="16" />
+            <state relative-caret-position="1170">
+              <caret line="98" column="16" lean-forward="false" selection-start-line="98" selection-start-column="16" selection-end-line="98" selection-end-column="16" />
               <folding>
                 <element signature="n#style#0;n#div#1;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#span#0;n#a#0;n#div#0;n#div#0;n#div#0;n#div#1;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#a#1;n#div#2;n#div#1;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#a#2;n#div#2;n#div#1;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#span#0;n#a#0;n#div#0;n#div#0;n#div#3;n#div#1;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#div#2;n#html#0;n#!!top" expanded="true" />
               </folding>
@@ -126,11 +121,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="bodyScript.ejs" pinned="false" current-in-tab="false">
+      <file leaf-file-name="bodyScript.ejs" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/views/templates/bodyScript.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="15" column="41" lean-forward="true" selection-start-line="15" selection-start-column="41" selection-end-line="15" selection-end-column="41" />
+            <state relative-caret-position="60">
+              <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -209,9 +204,9 @@
         <option value="$PROJECT_DIR$/routes/home.js" />
         <option value="$PROJECT_DIR$/views/displayplaylists.ejs" />
         <option value="$PROJECT_DIR$/public/scripts/search.js" />
-        <option value="$PROJECT_DIR$/views/templates/bodyScript.ejs" />
         <option value="$PROJECT_DIR$/public/scripts/PlaylistSearch.js" />
         <option value="$PROJECT_DIR$/views/home.ejs" />
+        <option value="$PROJECT_DIR$/views/templates/bodyScript.ejs" />
       </list>
     </option>
   </component>
@@ -288,48 +283,6 @@
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
             <PATH_ELEMENT USER_OBJECT="templates">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="Playlist">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="routes">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="Playlist">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="custom_modules">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="Playlist">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="config">
               <option name="myItemId" value="" />
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
@@ -436,12 +389,12 @@
       <workItem from="1480200050649" duration="20000" />
       <workItem from="1480200791988" duration="10704000" />
       <workItem from="1480348891460" duration="271000" />
-      <workItem from="1480453430586" duration="25245000" />
+      <workItem from="1480453430586" duration="25350000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="90191000" />
+    <option name="totallyTimeSpent" value="90296000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="73" y="42" width="883" height="777" extended-state="0" />
@@ -769,14 +722,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/templates/bodyScript.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="41" lean-forward="true" selection-start-line="15" selection-start-column="41" selection-end-line="15" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/scripts/PlaylistSearch.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="264">
@@ -809,15 +754,13 @@
     <entry file="file://$PROJECT_DIR$/views/displayplaylists.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="780">
-          <caret line="52" column="27" lean-forward="true" selection-start-line="52" selection-start-column="27" selection-end-line="52" selection-end-column="27" />
+          <caret line="52" column="27" lean-forward="false" selection-start-line="52" selection-start-column="27" selection-end-line="52" selection-end-column="27" />
           <folding>
-            <marker date="1480617875000" expanded="true" signature="1478:2053" ph="..." />
-            <marker date="1480617875000" expanded="true" signature="1536:1786" ph="..." />
-            <marker date="1480617875000" expanded="true" signature="1595:1597" ph="..." />
-            <marker date="1480617875000" expanded="true" signature="1595:1750" ph="..." />
-            <marker date="1480617875000" expanded="true" signature="1867:2021" ph="..." />
-            <marker date="1480617875000" expanded="true" signature="4473:4641" ph="..." />
-            <marker date="1480617875000" expanded="true" signature="4522:4610" ph="..." />
+            <marker date="1480635506000" expanded="true" signature="1478:2053" ph="..." />
+            <marker date="1480635506000" expanded="true" signature="1536:1786" ph="..." />
+            <marker date="1480635506000" expanded="true" signature="1595:1597" ph="..." />
+            <marker date="1480635506000" expanded="true" signature="1595:1750" ph="..." />
+            <marker date="1480635506000" expanded="true" signature="1867:2021" ph="..." />
           </folding>
         </state>
       </provider>
@@ -872,16 +815,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/views/home.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="102" column="16" lean-forward="false" selection-start-line="102" selection-start-column="16" selection-end-line="102" selection-end-column="16" />
+        <state relative-caret-position="1170">
+          <caret line="98" column="16" lean-forward="false" selection-start-line="98" selection-start-column="16" selection-end-line="98" selection-end-column="16" />
           <folding>
             <element signature="n#style#0;n#div#1;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#span#0;n#a#0;n#div#0;n#div#0;n#div#0;n#div#1;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#a#1;n#div#2;n#div#1;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#a#2;n#div#2;n#div#1;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#span#0;n#a#0;n#div#0;n#div#0;n#div#3;n#div#1;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#2;n#html#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/templates/bodyScript.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

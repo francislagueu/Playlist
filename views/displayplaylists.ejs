@@ -60,9 +60,14 @@
                         success: function(data){
                             //for each item in the playlist, add an item to the main spotify playlist.
                             for(var j = 0; j < data['items'].length; j++){
-                                $("ul#" + spotid).append('<li id = '+ data['items']['' + j].id +' class = "list-group-item">' + data['items']['' + j].name+'</li>');
+                                $("ul#" + spotid).append('<li id = '+ data['items']['' + j].id +' class = "list-group-item">\
+                                    <img src="' + data['items']['' + j].albumart + '" align="left" width="30" height="30">\
+                                    ' + data['items']['' + j].name+'\
+                                    </li>\
+                                    \
+                                    ');
                                 //throw some data to the click handler of each item.
-                                $("li#" + data['items']['' + j].id).click(
+                                $("ul#" + spotid + " > li#" + data['items']['' + j].id).click(
                                     {
                                         type: "li",
                                         id:data['items']['' + j].id,
@@ -71,8 +76,6 @@
                                     },
                                     appendToBuilder
                                     );
-                                
-
                             }
 
                         },
@@ -101,13 +104,17 @@
                     var title = '' + ids[i].title;
                     //create the title display for each item. Might find a cleaner solution down the line...
                     $("#youtube-playlists.panel-group").append('\
-                        <ul class="nav nav-pills nav-stacked">\
-                            <li class="active">\
-                               <a>' + title + '</a>\
-                            </li>\
-                        </ul>\
-                        <ul id = ' + id + ' class="list-group nested_list ">\
-                        </ul>\
+                        <div class="panel panel-default ">\
+                            <div class="panel-heading " >\
+                                <h4 class="panel-title">\
+                                    <a data-toggle="collapse" href="#collapse' + id + '">' + title + '</a>\
+                                </h4>\
+                            </div>\
+                            <div id="collapse' + id + '" class="collapse ">\
+                                <ul  id = ' + id + ' class="list-group ">\
+                                </ul>\
+                            </div>\
+                        </div>\
                         \
                     ');
                     (function(id){
@@ -118,7 +125,20 @@
                         success: function(data, stat){
                             for(var j = 0; j < data.items.length; j++){
 
-                                $("ul#" + id).append('<li class = "list-group-item">' + data.items[j].snippet.title+'</li>');
+                                $("ul#" + id).append('<li id = "' + data.items[j].vidid +'" class = "list-group-item">\
+                                    <img src="https://img.youtube.com/vi/' + data.items[j].vidid + '/default.jpg" align="left" width="42" height="42">\
+                                    ' + data.items[j].snippet.title+'\
+                                    </li>\
+                                    \
+                                    ');
+                                $("ul#" + id +  " > li#" + data.items[j].vidid).click(
+                                {
+                                    type: "li",
+                                    id: data.items[j].vidid,
+                                    name: data.items[j].snippet.title,
+                                    artist: "not added yet"
+                                },
+                                appendToBuilder);
                             }
                         },
                         error: function(err){
