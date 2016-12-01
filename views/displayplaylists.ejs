@@ -1,4 +1,20 @@
 <script type = "text/javascript">
+    /*
+        This function will attach a click listener to each item 
+    */
+    function appendToBuilder(event){
+        if(event.data.type === "li"){
+            if(!($("#builderlist > #" + event.data.id).length)){
+                $("#builderlist").append('<li id = '+ event.data.id +' class = "list-group-item">' + event.data.name+'</li>');
+                $("#builderlist > #"+ event.data.id).click(function(){
+                    $(this).remove();
+                });
+            }
+            
+        }
+        // else if(){}
+    }
+
     //check if the google authorized variable is set.
     var tubeauth = <%if(locals.authorized){%>true;<%} else {%>false;<%}%>
     var ids, spotids; 
@@ -43,13 +59,18 @@
                         success: function(data){
                             //for each item in the playlist, add an item to the main spotify playlist.
                             for(var j = 0; j < data['items'].length; j++){
-                                $("ul#" + spotid).prepend('<li id = '+ data['items']['' + j].id +' class = "list-group-item">' + data['items']['' + j].name+'</li>');
-
-                                $("li#" + data['items']['' + j].id).onclick = function(){
-                                    console.log("clicked");
-                                    $("#builderlist").append('<li id = '+ data['items']['' + j].id +' class = "list-group-item">' + data['items']['' + j].name+'</li>');
-
-                                };
+                                $("ul#" + spotid).append('<li id = '+ data['items']['' + j].id +' class = "list-group-item">' + data['items']['' + j].name+'</li>');
+                                //throw some data to the click handler of each item.
+                                $("li#" + data['items']['' + j].id).click(
+                                    {
+                                        type: "li",
+                                        id:data['items']['' + j].id,
+                                        name:data['items']['' + j].name,
+                                        artist:"not added yet"
+                                    },
+                                    appendToBuilder
+                                    );
+                                
 
                             }
 
@@ -111,7 +132,7 @@
             }                
         });
     }
-   
+
 
     
 </script>

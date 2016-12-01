@@ -8,10 +8,10 @@
 
     <%- include('./templates/headLinks'); %>
 
-
+<!-- 
     <script type="text/javascript" src="public/scripts/fuzzyset.js"></script>
     <script type="text/javascript" src="public/scripts/wordcache.js"></script>
-    <script type="text/javascript" src="public/scripts/playlist.js"></script>
+    <script type="text/javascript" src="public/scripts/playlist.js"></script> -->
 
     <style>
 #div1 {
@@ -25,7 +25,7 @@
 
 </head>
 
-<body onload="startApp()">
+<!-- <body onload="startApp()"> -->
 
 <%- include('./templates/header'); %>
 
@@ -200,31 +200,20 @@
         /*START OF EXPERIMENTAL DRAG AND DROP CODE*/
 
         function allowDrop(ev) {
-    ev.preventDefault();
-}
+            ev.preventDefault();
+        }
 
-function drag(ev) {
-    ev.dataTransfer.setData("text", ev.target.id);
-}
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+        }
 
-function drop(ev) {
-    ev.preventDefault();
-    var data = ev.dataTransfer.getData("text");
-    ev.target.appendChild(document.getElementById(data));
-}
+        function drop(ev) {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+            ev.target.appendChild(document.getElementById(data));
+        }
 
-
-
-
-
-
-
-
-
-
-
-
-        /*END OF EXPERIMENTAL DRAG AND DROP CODE*/
+     /*END OF EXPERIMENTAL DRAG AND DROP CODE*/
 
     </script>
 
