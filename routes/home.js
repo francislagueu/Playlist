@@ -90,7 +90,8 @@ router.get('/spotplaylistinfo',function(req,res,next){
 						'id' : data.body.items[i].id,
 						'title': data.body.items[i].name,
 						'ownerid': data.body.items[i].owner.id,
-						'trackcount': data.body.items[i].tracks.total
+						'trackcount': data.body.items[i].tracks.total,
+						'images':data.body.items[i].images
 					};
 					playlists['items'][''+i] = info;
 				}
