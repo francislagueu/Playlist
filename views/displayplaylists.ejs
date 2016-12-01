@@ -16,6 +16,7 @@
                 var spotid = '' + spotids[i].id;
                 var spottitle = '' + spotids[i].title;
                 var ownerid = '' + spotids[i].ownerid;
+
                 $("#spotifyplaylists.panel-group").append('\
                         <div class="panel panel-default ">\
                             <div class="panel-heading " >\
@@ -49,6 +50,7 @@
                                     $("#builderlist").append('<li id = '+ data['items']['' + j].id +' class = "list-group-item">' + data['items']['' + j].name+'</li>');
 
                                 };
+
                             }
 
                         },

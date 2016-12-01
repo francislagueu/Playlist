@@ -9,12 +9,19 @@ var userSchema = mongoose.Schema({
 		email:{type: String},
         first_name:{type: String},
         last_name:{type: String}
+        //playlists:[{type: Schema.Types.ObjectId, ref:'Playlist' }]
 
 
 });
 
+/*var playlistSchema = mongoose.Schema({
+    title :string,
+    tracks:[{name:string}],
+    created:{type:Date, default:Date.now()}
 
+});*/
 var User = module.exports = mongoose.model('User', userSchema);
+//var Playlist = module.exports = mongoose.model('Playlist', playlistSchema);
 
 module.exports.createUser = function (newUser, callback) {
     bcrypt.genSalt(10, function (err, salt) {
