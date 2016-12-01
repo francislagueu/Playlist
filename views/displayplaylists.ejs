@@ -23,13 +23,14 @@
                                     <a data-toggle="collapse" href="#collapse' + spotid + '">' + spottitle + '</a>\
                                 </h4>\
                             </div>\
-                            <div id="collapse' + spotid + '" class="collapse">\
-                                <ul  id = ' + spotid + ' class="list-group">\
+                            <div id="collapse' + spotid + '" class="collapse ">\
+                                <ul  id = ' + spotid + ' class="list-group ">\
                                 </ul>\
                             </div>\
                         </div>\
                         \
                 ');
+
                 (function(spotid, ownerid){
                     $.get({
                         url: './home/spotplaylist',
@@ -40,11 +41,16 @@
                         dataType:'json',
                         success: function(data){
                             //for each item in the playlist, add an item to the main spotify playlist.
-                            
                             for(var j = 0; j < data['items'].length; j++){
-                                $("ul#" + spotid).prepend('<li class = "list-group-item">' + data['items']['' + j].name+'</li>');
-                                
+                                $("ul#" + spotid).prepend('<li id = '+ data['items']['' + j].id +' class = "list-group-item">' + data['items']['' + j].name+'</li>');
+
+                                $("li#" + data['items']['' + j].id).onclick = function(){
+                                    console.log("clicked");
+                                    $("#builderlist").append('<li id = '+ data['items']['' + j].id +' class = "list-group-item">' + data['items']['' + j].name+'</li>');
+
+                                };
                             }
+
                         },
                         error: function(err){
                             console.log("error getting items for spotify playlists to view: ", err);
@@ -76,7 +82,7 @@
                                <a>' + title + '</a>\
                             </li>\
                         </ul>\
-                        <ul id = ' + id + ' class="list-group nested_list">\
+                        <ul id = ' + id + ' class="list-group nested_list ">\
                         </ul>\
                         \
                     ');
@@ -103,8 +109,7 @@
             }                
         });
     }
-
-  
+   
 
     
 </script>

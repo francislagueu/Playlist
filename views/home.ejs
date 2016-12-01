@@ -39,7 +39,7 @@
                 <a id="spotbutt" href = "#" class="list-group-item active">
                     Spotify
                 </a>
-            <div class = "panel-group spotsort" id = "spotifyplaylists"></div>
+            <div class = "panel-group" id = "spotifyplaylists"></div>
             </div>
         </div>
     <%}%>
@@ -63,7 +63,11 @@
         </form>
 
         <div class="container">
-            <div class="panel-group" id="results"></div>
+            <div class="panel-group" id="results">
+                <ul id="builderlist">
+                    
+                </ul>
+            </div>
         </div>
 
         <a href="#" class="list-group-item"  style="font-size: 75%;">I love
@@ -172,7 +176,7 @@
     <button class="mdl-snackbar__action" type="button"></button>
 </div>
 
-<script>
+<!-- <script>
     r(function(){
         var snackbarContainer = document.querySelector('#demo-toast-example');
         var data = { message: 'Welcome ' + first_name+''};
@@ -180,23 +184,16 @@
     });
     function r(f){ /in/.test(document.readyState)?setTimeout('r('+f+')',9):f()}
 </script>
+ -->
 
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-
-
-<!-- <script
-  src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
-  integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
-  crossorigin="anonymous"></script> -->
 
 
 
 <% include displayplaylists%>
 <%- include('./templates/footer'); %>
 <!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+ -->
 
 
 
