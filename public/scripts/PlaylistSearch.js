@@ -224,7 +224,7 @@ function getUserID() {
 
 function checkLoginStatus() {
     matches = location.hash.match(new RegExp('access_token=([^&]*)'));
-    console.log(matches);
+    console.log(location);
     accessToken = matches ? matches[1] : null;
     if(accessToken) {
         getUserID();

@@ -22,8 +22,12 @@
     padding: 10px;
     border: 4px solid #aaaaaa;
 }
+        body{
+            margin-left: 20px;
+            margin-right: 20px;
+        }
 </style>
-
+<script src="../scripts/playlist.js"></script>
 
 </head>
 
@@ -31,11 +35,11 @@
 
 <%- include('./templates/header'); %>
 
+<body>
 
-<h1></h1>
 
 <div class="center"></div>
-<div class="row" style="font-size: 200%; margin-top: 90px;">
+<div class="row" style="font-size: 200%; margin-top: 90px; margin-right: 20px;">
     <% if(!spotauth){%>
         <div class="col-sm-4" align="center" >
             <div class="list-group">
@@ -98,24 +102,6 @@
              </div>
          </form>
 
-         <section id="playlist-area" class="col-sm-8">
-             <article id="playlist-bar">
-                 <input type="text" id="playlist-input" placeholder="Name your playlist.">
-                 <button id="playlist-button" class="btn col-sm-2" onclick="savePlaylist()">Save Playlist</button>
-             </article>
-             <article id="playlist-list"></article>
-         </section>
-         <section id="search-area" class="col-sm-8">
-             <article id="search-bar">
-                 <select>
-                     <option value="artist">Artist</option>
-                     <option value="track">Track</option>
-                 </select>
-                 <input type="text" id="search-input" placeholder="Search by Artist or Song.">
-                 <button id="search-button" class="btn" onclick="search($('select').val(),$('#search-input').val())">Search</button>
-             </article>
-             <article id="search-results"></article>
-         </section>
 
     </div>
     <!--googles not authorized, don't show the playlists.-->

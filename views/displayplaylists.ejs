@@ -27,7 +27,7 @@
         dataType: 'json',
         success: function(data){
             spotids = data.items;
-            //console.log("full list is: ", spotids);
+            console.log("full list is: ", data);
             for(var i = 0; i < spotids.length; i++){
                 var spotid = '' + spotids[i].id;
                 var spottitle = '' + spotids[i].title;
@@ -91,6 +91,17 @@
             console.log(err);
         }
        });
+
+      /*  (function(){
+            $.post({
+                url:'./home/createspotifyplaylist',
+                dataType:'json',
+                data:{
+                    'name': $('#playlist-input').val(),
+                    'public': false
+                }
+            });
+        });*/
     }
     //get the youtube playlists if youtube has been authorized by the user.
     if(tubeauth){

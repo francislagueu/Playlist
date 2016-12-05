@@ -172,6 +172,7 @@ router.post('/createspotifyplaylist', function (req, res, next) {
 	var ownerid = req.query.ownerid;
 	var name = req.body.playlistname;
 	if(req.session.spotauth){
+		spotifyapi.setAccessToken(data.body['access_token']);
 		spotify.createPlaylist(ownerid, name, {'public':false}).then(function (data) {
 			console.log('Created Playlist ' + data.name);
         }, function(err){
