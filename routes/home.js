@@ -10,6 +10,7 @@ var youtube = google.youtube({version: 'v3'});
 var infoparams =  {mine:true, part: 'snippet'};
 var tubeitemparams = {playlistId: null, part: 'snippet'};
 
+//router.use(isLoggedIn() );
 /* Main page where the playlists are located. */
 router.get('/', function(req, res,next) {
 		if(req.session.authorized || req.session.spotauth){
@@ -59,15 +60,51 @@ router.get('/playlistinfo', function(req, res, next){
 	else 
 		next();
 });
-
+/*
+	Get the playlist items inside a given playlist and also 
+	check to make sure that it's categorized as 'Music'
+*/
 router.get('/playlist?:id',function(req,res,next){
+	var idlist = '';
+	//items to return to the view. 
+	var itemlist = [];
+	var itemcount;
+	var viewdata = {};
 	if(req.session.authorized){
 		 tubeitemparams.playlistId = req.query.id;
-		 youtube.playlistItems.list(tubeitemparams, function(err, response){
+		 youtube.playlistItems.list(tubeitemparams, function(err, itemsResponse){
 
 		 	if(!err){
-
-		 		res.json(response);
+		 		if(!(itemsResponse.items == 'undefined') && !(itemsResponse.items.length == 0)){
+		 			for(var i = 0; i < itemsResponse.items.length; i ++){
+		 				idlist = idlist + itemsResponse.items[i].snippet.resourceId.videoId;
+		 				if(!(i == itemsResponse.items.length-1)){
+		 					idlist= idlist + ',';
+		 				}
+		 			}
+		 			//split the string into an array
+		 			youtube.videos.list({part: 'snippet', id: idlist}, function(err, videosResponse){
+		 				if(!err){
+		 					itemcount = 0;
+		 					idlist = idlist.split(",");
+		 					for(var j = 0; j < videosResponse.items.length; j ++){
+		 						if(videosResponse.items[j].snippet.categoryId === '10'){
+		 							itemlist[itemcount] = videosResponse.items[j];
+		 							itemlist[itemcount].id = itemsResponse.items[j].snippet.id;
+		 							itemlist[itemcount].vidid = idlist[j];
+		 							itemcount++;
+		 						}
+		 					}
+		 					viewdata = {
+		 						items: itemlist
+		 					}
+		 					res.json(viewdata);
+		 				}
+		 				else
+		 					console.log("error getting the videos info: ", err);
+		 			});
+		 		}
+		 		//res.json(itemsResponse);
 			}
 			else{
 				console.log("Error occurred grabbing playlist items!", err);
@@ -89,8 +126,8 @@ router.get('/spotplaylistinfo',function(req,res,next){
 						'id' : data.body.items[i].id,
 						'title': data.body.items[i].name,
 						'ownerid': data.body.items[i].owner.id,
-						'trackcount': data.body.items[i].tracks.total
-
+						'trackcount': data.body.items[i].tracks.total,
+						'images':data.body.items[i].images
 					};
 					playlists['items'][''+i] = info;
 				}
@@ -118,7 +155,8 @@ router.get('/spotplaylist?', function(req,res,next){
 			for(var i=0; i < tracks.length; i++){
 				var item = {
 					'id': tracks[i].track.id,
-					'name': tracks[i].track.name
+					'name': tracks[i].track.name,
+					'albumart': tracks[i].track.album.images[0].url
 				};
 				playlist['items'][i] = item;
 			}
@@ -165,4 +203,6 @@ function renderView(req,res, google, spotify){
 
 	res.end();
 }
+
+
 module.exports = router;

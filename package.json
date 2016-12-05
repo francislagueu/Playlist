@@ -23,7 +23,8 @@
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "serve-favicon": "~2.3.0",
-    "spotify-web-api-node": "^2.3.6"
+    "spotify-web-api-node": "^2.3.6",
+    "toastr": "^2.1.2"
   },
   "main": "app.js",
   "repository": {

@@ -4,14 +4,30 @@
 <head>
     <title>Playlist</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <%- include('./templates/headLinks'); %>
 
-    
+<!-- 
+    <script type="text/javascript" src="public/scripts/fuzzyset.js"></script>
+    <script type="text/javascript" src="public/scripts/wordcache.js"></script>
+    <script type="text/javascript" src="public/scripts/playlist.js"></script> -->
+
+
+
+    <style>
+#div1 {
+    width: 350px;
+    height: 70px;
+    padding: 10px;
+    border: 4px solid #aaaaaa;
+}
+</style>
+
 
 </head>
 
-<body>
+<!-- <body onload="startApp()"> -->
 
 <%- include('./templates/header'); %>
 
@@ -24,6 +40,7 @@
         <div class="col-sm-4" align="center" >
             <div class="list-group">
                 <a id="spotbutt" href = "#" class="list-group-item active">
+                    <i class="fa fa-spotify" aria-hidden="true"></i>
                     Spotify
                 </a>
                 <div class="jumbotron">
@@ -35,9 +52,10 @@
         <div class="col-sm-4" align="center" >
             <div class="list-group" >
                 <a id="spotbutt" href = "#" class="list-group-item active">
+                    <i class="fa fa-spotify" aria-hidden="true"></i>
                     Spotify
                 </a>
-            <div class = "panel-group spotsort" id = "spotifyplaylists"></div>
+            <div class = "panel-group" id = "spotifyplaylists"></div>
             </div>
         </div>
     <%}%>
@@ -45,7 +63,7 @@
     <!-- Reserved section for the builder, coming up next :) -->
 
      <div class="col-sm-4" align="center">
-        <a href="#" class="list-group-item active">
+        <a href="#" class="list-group-item active" ondrop="drop(event)" >
             Builder
         </a>
 
@@ -55,29 +73,62 @@
                         <input type="text" id="query" value="" class="form-control" placeholder="Search Music">
                     </div>
                     <div class="col-sm-2">
-                        <input type="submit" id="builderSearch" class="btn btn-success" value="Search" />
+                        <input type="submit" id="start" class="btn btn-success" value="Search" />
                     </div>
                 </div>
         </form>
 
         <div class="container">
-            <div class="panel-group" id="results"></div>
+            <div class="panel-group" id="results">
+                <ul id="builderlist">
+                    
+                </ul>
+            </div>
         </div>
 
-        <a href="#" class="list-group-item"  style="font-size: 75%;">I love
-        </a>
-        <a href="#" class="list-group-item"  style="font-size: 75%;">Music and stuff
-        </a>
+         <form id="createplaylist">
+             <div class="form-group row">
+                 <div class="col-sm-8">
+                     <input type="text" id="playlistname" value="" class="form-control" placeholder="Playlist name">
+                 </div>
+                 <div class="col-sm-2">
+                     <input type="submit" id="builderSearch" class="btn btn-success" value="Create" />
+                 </div>
+                 
+             </div>
+         </form>
+
+         <section id="playlist-area" class="col-sm-8">
+             <article id="playlist-bar">
+                 <input type="text" id="playlist-input" placeholder="Name your playlist.">
+                 <button id="playlist-button" class="btn col-sm-2" onclick="savePlaylist()">Save Playlist</button>
+             </article>
+             <article id="playlist-list"></article>
+         </section>
+         <section id="search-area" class="col-sm-8">
+             <article id="search-bar">
+                 <select>
+                     <option value="artist">Artist</option>
+                     <option value="track">Track</option>
+                 </select>
+                 <input type="text" id="search-input" placeholder="Search by Artist or Song.">
+                 <button id="search-button" class="btn" onclick="search($('select').val(),$('#search-input').val())">Search</button>
+             </article>
+             <article id="search-results"></article>
+         </section>
+
     </div>
     <!--googles not authorized, don't show the playlists.-->
     <% if(!authorized){ %>
     <div class="col-md-4" align="center">
         <div class="list-group">
             <a id="youbutt" href="#" class="list-group-item active">
+                <i class="fa fa-youtube-square" aria-hidden="true"></i>
+
                 Youtube
             </a>
             <div class="jumbotron">
-                <a href="/oauth" class="btn btn-danger"><span class="fa fa-youtube" style="padding: 15px; font-size: 200%;"> YouTube</span></a>
+                <a href="/oauth" class="btn btn-danger"><span class="fa fa-youtube" style="padding: 15px; font-size: 200%;" > YouTube</span></a>
             </div>
         </div>
     </div>
@@ -85,12 +136,21 @@
     <div class="col-md-4" align="center">
         <div class="list-group">
             <a id="youbutt" href="#" class="list-group-item active">
+                <i class="fa fa-youtube-square" aria-hidden="true"></i>
+
                 Youtube
             </a>
-            <div class="panel-group" id = "youtube-playlists"></div>
+                <div class="panel-group" id = "youtube-playlists"></div>
         </div>
     </div>
     <%}%>
+</div>
+
+<div class="container">
+    <div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar" style="z-index: 3;">
+        <div class="mdl-snackbar__text"></div>
+        <button class="mdl-snackbar__action" type="button"></button>
+    </div>
 </div>
 
 <%- include('./templates/bodyScript'); %>
@@ -113,6 +173,9 @@
 </script>
 
 
+
+<% include displayplaylists%>
+
 <script type="text/javascript">
         // find template and compile it
         var templateSource = document.getElementById('results-template').innerHTML,
@@ -133,7 +196,7 @@
         var searchAlbums = function (query) {
             $.ajax({
                 url: 'https://api.spotify.com/v1/search',
-                data: {
+                data: { 
                     q: query,
                     type: 'track'
                 },
@@ -147,38 +210,55 @@
             e.preventDefault();
             searchAlbums(document.getElementById('query').value);
         }, false);
+
+
+
+        /*START OF EXPERIMENTAL DRAG AND DROP CODE*/
+
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+            ev.target.appendChild(document.getElementById(data));
+        }
+
+     /*END OF EXPERIMENTAL DRAG AND DROP CODE*/
+
     </script>
 
 <!-- include the ajax calls to grab the playlists! -->
 
-<div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
-    <div class="mdl-snackbar__text"></div>
-    <button class="mdl-snackbar__action" type="button"></button>
-</div>
+<script type="text/javascript" src="scripts/PlaylistSearch.js"/>
 
 <script>
-    r(function(){
-        var snackbarContainer = document.querySelector('#demo-toast-example');
-        var data = { message: 'Welcome'};
-        snackbarContainer.MaterialSnackbar.showSnackbar(data);
-    });
-    function r(f){ /in/.test(document.readyState)?setTimeout('r('+f+')',9):f()}
+    if (sessionStorage.getItem("hasCodeRunBefore") === null) {
+        r(function(){
+            var snackbarContainer = document.querySelector('#demo-toast-example');
+            var name = '<%= user.first_name %>';
+             var data = { message: 'Welcome ' + name +''};
+            snackbarContainer.MaterialSnackbar.showSnackbar(data);
+        });
+        function r(f){ /in/.test(document.readyState)?setTimeout('r('+f+')',9):f()}
+
+        sessionStorage.setItem("hasCodeRunBefore", true);
+    }
 </script>
 
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<!-- <script
-  src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
-  integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
-  crossorigin="anonymous"></script> -->
 
 
-
-<% include displayplaylists%>
 <%- include('./templates/footer'); %>
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
+
+<!-- Latest compiled and minified JavaScript -->
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+ -->
 
 
 

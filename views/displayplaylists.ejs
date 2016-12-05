@@ -1,8 +1,25 @@
 <script type = "text/javascript">
+    /*
+        This function will attach a click listener to each item 
+    */
+    function appendToBuilder(event){
+        if(event.data.type === "li"){
+            if(!($("#builderlist > #" + event.data.id).length)){
+                $("#builderlist").append('<li id = '+ event.data.id +' class = "list-group-item">' + event.data.name+'</li>');
+                $("#builderlist > #"+ event.data.id).click(function(){
+                    $(this).remove();
+                });
+            }
+            
+        }
+        // else if(){}
+    }
+
     //check if the google authorized variable is set.
     var tubeauth = <%if(locals.authorized){%>true;<%} else {%>false;<%}%>
     var ids, spotids; 
     var spotauth = <%if(locals.spotauth){%>true;<%} else {%>false;<%}%>
+
     //get the spotify playlists if spotify has been authorized by the user.
     if(spotauth){
        $.get({
@@ -15,6 +32,8 @@
                 var spotid = '' + spotids[i].id;
                 var spottitle = '' + spotids[i].title;
                 var ownerid = '' + spotids[i].ownerid;
+                var images= ''+ spotids[i].images;
+
                 $("#spotifyplaylists.panel-group").append('\
                         <div class="panel panel-default ">\
                             <div class="panel-heading " >\
@@ -22,13 +41,13 @@
                                     <a data-toggle="collapse" href="#collapse' + spotid + '">' + spottitle + '</a>\
                                 </h4>\
                             </div>\
-                            <div id="collapse' + spotid + '" class="collapse">\
-                                <ul  id = ' + spotid + ' class="list-group">\
+                            <div id="collapse' + spotid + '" class="collapse ">\
+                                <ul  id = ' + spotid + ' class="list-group ">\
                                 </ul>\
                             </div>\
                         </div>\
                         \
-                    ');
+                ');
 
                 (function(spotid, ownerid){
                     $.get({
@@ -40,11 +59,25 @@
                         dataType:'json',
                         success: function(data){
                             //for each item in the playlist, add an item to the main spotify playlist.
-                            
                             for(var j = 0; j < data['items'].length; j++){
-                                $("ul#" + spotid).prepend('<li class = "list-group-item">' + data['items']['' + j].name+'</li>');
-                                
+                                $("ul#" + spotid).append('<li id = '+ data['items']['' + j].id +' class = "list-group-item">\
+                                    <img src="' + data['items']['' + j].albumart + '" align="left" width="30" height="30">\
+                                    ' + data['items']['' + j].name+'\
+                                    </li>\
+                                    \
+                                    ');
+                                //throw some data to the click handler of each item.
+                                $("ul#" + spotid + " > li#" + data['items']['' + j].id).click(
+                                    {
+                                        type: "li",
+                                        id:data['items']['' + j].id,
+                                        name:data['items']['' + j].name,
+                                        artist:"not added yet"
+                                    },
+                                    appendToBuilder
+                                    );
                             }
+
                         },
                         error: function(err){
                             console.log("error getting items for spotify playlists to view: ", err);
@@ -72,19 +105,18 @@
                     //create the title display for each item. Might find a cleaner solution down the line...
                     $("#youtube-playlists.panel-group").append('\
                         <div class="panel panel-default ">\
-                            <div class="panel-heading">\
+                            <div class="panel-heading " >\
                                 <h4 class="panel-title">\
                                     <a data-toggle="collapse" href="#collapse' + id + '">' + title + '</a>\
                                 </h4>\
                             </div>\
-                            <div id="collapse' + id + '" class="collapse">\
-                                <ul id = ' + id + ' class="list-group nested_list">\
+                            <div id="collapse' + id + '" class="collapse ">\
+                                <ul  id = ' + id + ' class="list-group ">\
                                 </ul>\
                             </div>\
                         </div>\
                         \
                     ');
-
                     (function(id){
                     $.get({
                         url: './home/playlist',
@@ -93,7 +125,20 @@
                         success: function(data, stat){
                             for(var j = 0; j < data.items.length; j++){
 
-                                $("ul#" + id).prepend('<li class = "list-group-item">' + data.items[j].snippet.title+'</li>');
+                                $("ul#" + id).append('<li id = "' + data.items[j].vidid +'" class = "list-group-item">\
+                                    <img src="https://img.youtube.com/vi/' + data.items[j].vidid + '/default.jpg" align="left" width="42" height="42">\
+                                    ' + data.items[j].snippet.title+'\
+                                    </li>\
+                                    \
+                                    ');
+                                $("ul#" + id +  " > li#" + data.items[j].vidid).click(
+                                {
+                                    type: "li",
+                                    id: data.items[j].vidid,
+                                    name: data.items[j].snippet.title,
+                                    artist: "not added yet"
+                                },
+                                appendToBuilder);
                             }
                         },
                         error: function(err){
@@ -108,17 +153,7 @@
             }                
         });
     }
-Sortable.create(spotifyplaylists,{
-    group:"sorting",
-    sort:true,
-    animation:100
-});
-Sortable.create(buildsort, {
-    group: "sorting", 
-    sort: true,
-    animation:100
-});
-  
+
 
     
 </script>
