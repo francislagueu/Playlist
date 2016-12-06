@@ -27,11 +27,12 @@
         dataType: 'json',
         success: function(data){
             spotids = data.items;
-            //console.log("full list is: ", spotids);
+            console.log("full list is: ", data);
             for(var i = 0; i < spotids.length; i++){
                 var spotid = '' + spotids[i].id;
                 var spottitle = '' + spotids[i].title;
                 var ownerid = '' + spotids[i].ownerid;
+                var images= ''+ spotids[i].images;
 
                 $("#spotifyplaylists.panel-group").append('\
                         <div class="panel panel-default ">\
@@ -60,13 +61,13 @@
                             //for each item in the playlist, add an item to the main spotify playlist.
                             for(var j = 0; j < data['items'].length; j++){
                                 $("ul#" + spotid).append('<li id = '+ data['items']['' + j].id +' class = "list-group-item">\
-                                    <img src="http://all-len-all.com/wp-content/uploads/2014/04/fat-duck.jpg" align="left" width="42" height="42">\
+                                    <img src="' + data['items']['' + j].albumart + '" align="left" width="30" height="30">\
                                     ' + data['items']['' + j].name+'\
                                     </li>\
                                     \
                                     ');
                                 //throw some data to the click handler of each item.
-                                $("li#" + data['items']['' + j].id).click(
+                                $("ul#" + spotid + " > li#" + data['items']['' + j].id).click(
                                     {
                                         type: "li",
                                         id:data['items']['' + j].id,
@@ -75,8 +76,6 @@
                                     },
                                     appendToBuilder
                                     );
-                                
-
                             }
 
                         },
@@ -92,6 +91,17 @@
             console.log(err);
         }
        });
+
+      /*  (function(){
+            $.post({
+                url:'./home/createspotifyplaylist',
+                dataType:'json',
+                data:{
+                    'name': $('#playlist-input').val(),
+                    'public': false
+                }
+            });
+        });*/
     }
     //get the youtube playlists if youtube has been authorized by the user.
     if(tubeauth){
@@ -126,12 +136,20 @@
                         success: function(data, stat){
                             for(var j = 0; j < data.items.length; j++){
 
-                                $("ul#" + id).append('<li class = "list-group-item">\
-                                    <img src="http://all-len-all.com/wp-content/uploads/2014/04/fat-duck.jpg" align="left" width="42" height="42">\
+                                $("ul#" + id).append('<li id = "' + data.items[j].vidid +'" class = "list-group-item">\
+                                    <img src="https://img.youtube.com/vi/' + data.items[j].vidid + '/default.jpg" align="left" width="42" height="42">\
                                     ' + data.items[j].snippet.title+'\
                                     </li>\
                                     \
                                     ');
+                                $("ul#" + id +  " > li#" + data.items[j].vidid).click(
+                                {
+                                    type: "li",
+                                    id: data.items[j].vidid,
+                                    name: data.items[j].snippet.title,
+                                    artist: "not added yet"
+                                },
+                                appendToBuilder);
                             }
                         },
                         error: function(err){

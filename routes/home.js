@@ -77,20 +77,21 @@ router.get('/playlist?:id',function(req,res,next){
 		 	if(!err){
 		 		if(!(itemsResponse.items == 'undefined') && !(itemsResponse.items.length == 0)){
 		 			for(var i = 0; i < itemsResponse.items.length; i ++){
-		 				
 		 				idlist = idlist + itemsResponse.items[i].snippet.resourceId.videoId;
 		 				if(!(i == itemsResponse.items.length-1)){
 		 					idlist= idlist + ',';
 		 				}
-
 		 			}
+		 			//split the string into an array
 		 			youtube.videos.list({part: 'snippet', id: idlist}, function(err, videosResponse){
 		 				if(!err){
 		 					itemcount = 0;
+		 					idlist = idlist.split(",");
 		 					for(var j = 0; j < videosResponse.items.length; j ++){
 		 						if(videosResponse.items[j].snippet.categoryId === '10'){
 		 							itemlist[itemcount] = videosResponse.items[j];
 		 							itemlist[itemcount].id = itemsResponse.items[j].snippet.id;
+		 							itemlist[itemcount].vidid = idlist[j];
 		 							itemcount++;
 		 						}
 		 					}
@@ -125,7 +126,8 @@ router.get('/spotplaylistinfo',function(req,res,next){
 						'id' : data.body.items[i].id,
 						'title': data.body.items[i].name,
 						'ownerid': data.body.items[i].owner.id,
-						'trackcount': data.body.items[i].tracks.total
+						'trackcount': data.body.items[i].tracks.total,
+						'images':data.body.items[i].images
 					};
 					playlists['items'][''+i] = info;
 				}
@@ -153,7 +155,8 @@ router.get('/spotplaylist?', function(req,res,next){
 			for(var i=0; i < tracks.length; i++){
 				var item = {
 					'id': tracks[i].track.id,
-					'name': tracks[i].track.name
+					'name': tracks[i].track.name,
+					'albumart': tracks[i].track.album.images[0].url
 				};
 				playlist['items'][i] = item;
 			}
@@ -169,6 +172,7 @@ router.post('/createspotifyplaylist', function (req, res, next) {
 	var ownerid = req.query.ownerid;
 	var name = req.body.playlistname;
 	if(req.session.spotauth){
+		spotifyapi.setAccessToken(data.body['access_token']);
 		spotify.createPlaylist(ownerid, name, {'public':false}).then(function (data) {
 			console.log('Created Playlist ' + data.name);
         }, function(err){
@@ -178,7 +182,7 @@ router.post('/createspotifyplaylist', function (req, res, next) {
 });
 
 router.post('/addtracktospotplaylist', function (req, res, next) {
-	var ownerid = req.query.ownerid;
+	var ownerid = req.query.ownerid; 
 	var name = req.body.playlistId;
 	var tracks = [];
 	if(req.session.spotauth){

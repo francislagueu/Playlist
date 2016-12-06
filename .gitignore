@@ -1,4 +1,5 @@
 node_modules/
+/.idea
 views/registerv1.ejs
 npm-debug.log.1773642925
 npm-debug.log.2171147346

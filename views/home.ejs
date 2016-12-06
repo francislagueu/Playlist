@@ -13,6 +13,8 @@
     <script type="text/javascript" src="public/scripts/wordcache.js"></script>
     <script type="text/javascript" src="public/scripts/playlist.js"></script> -->
 
+
+
     <style>
 #div1 {
     width: 350px;
@@ -20,8 +22,12 @@
     padding: 10px;
     border: 4px solid #aaaaaa;
 }
+        body{
+            margin-left: 20px;
+            margin-right: 20px;
+        }
 </style>
-
+<script src="../scripts/playlist.js"></script>
 
 </head>
 
@@ -29,11 +35,11 @@
 
 <%- include('./templates/header'); %>
 
+<body>
 
-<h1></h1>
 
 <div class="center"></div>
-<div class="row" style="font-size: 200%; margin-top: 90px;">
+<div class="row" style="font-size: 200%; margin-top: 90px; margin-right: 20px;">
     <% if(!spotauth){%>
         <div class="col-sm-4" align="center" >
             <div class="list-group">
@@ -68,7 +74,7 @@
         <form id="search-form">
                 <div class="form-group row">
                     <div class="col-sm-8">
-                        <input type="text" id="alltext" value="" class="form-control" placeholder="Search Music">
+                        <input type="text" id="query" value="" class="form-control" placeholder="Search Music">
                     </div>
                     <div class="col-sm-2">
                         <input type="submit" id="start" class="btn btn-success" value="Search" />
@@ -84,10 +90,6 @@
             </div>
         </div>
 
-        <a href="#" class="list-group-item"  style="font-size: 75%;" ><br>
-        </a>
-        <a href="#" class="list-group-item"  style="font-size: 75%;" ><br>
-        </a>
          <form id="createplaylist">
              <div class="form-group row">
                  <div class="col-sm-8">
@@ -99,6 +101,8 @@
                  
              </div>
          </form>
+
+
     </div>
     <!--googles not authorized, don't show the playlists.-->
     <% if(!authorized){ %>
@@ -217,7 +221,7 @@
 
 <!-- include the ajax calls to grab the playlists! -->
 
-
+<script type="text/javascript" src="scripts/PlaylistSearch.js"/>
 
 <script>
     if (sessionStorage.getItem("hasCodeRunBefore") === null) {
